@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:19:59 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/27 17:49:30 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/27 17:50:59 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -45,4 +45,6 @@ let () =
   (* let pika = Image.load_texture "./ressources/Pikachu.png" 0 in *)
   let (winx, winy) as winsize = (500, 500) in
   let data = Data.new_data winsize in
-  mainloop (data, new UI.group 0 0 winx winy [])
+  mainloop (data, new UI.group 0 0 winx winy [
+						
+					  ])
