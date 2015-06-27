@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:19:59 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/27 17:47:18 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/27 17:49:30 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -37,6 +37,7 @@ let () =
   Printf.printf "Hello world\n%!";
   (* Load SDL *)
   Sdl.init [`EVERYTHING];
+  Sdlttf.init ();
   Sdlevent.enable_events Sdlevent.all_events_mask;
   (* Init les datas *)
   (* Main loop *)
