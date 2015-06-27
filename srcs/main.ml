@@ -6,12 +6,16 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:19:59 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/27 16:47:59 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/27 17:17:40 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
-let show img dst =
+let show data =
+  let sprite = Data.sprite_n data 0 in
+  let iid = Sprite.iid sprite in
+  let img = Data.image_n data iid in
   let d = Sdlvideo.display_format (Image.sdl_ptr img) in
+  let dst = Data.display data in
   Sdlvideo.blit_surface d dst ();
   Sdlvideo.flip dst
 
@@ -21,10 +25,11 @@ let rec wait_key () =
 	Sdlevent.KEYDOWN _ -> ()
   | _ -> wait_key ()
 
-let rec mainloop ((data, img) as env) =
-  show img (Data.get_display data);
+let rec mainloop data =
+  show data;
+  (* show (Data.sprite_n data 0) (Data.display data); *)
   wait_key ()
-(* mainloop env *)
+(* mainloop data *)
 
 let () =
   Printf.printf "Hello world\n%!";
@@ -33,7 +38,7 @@ let () =
   Sdlevent.enable_events Sdlevent.all_events_mask;
   (* Init les datas *)
   (* Main loop *)
-  let img = Image.load_texture "./ressources/Icons.jpg" 0 in
-  let pika = Image.load_texture "./ressources/Pikachu.png" 0 in
+  (* let img = Image.load_texture "./ressources/Icons.jpg" 0 in *)
+  (* let pika = Image.load_texture "./ressources/Pikachu.png" 0 in *)
   let data = Data.new_data in
-  mainloop (data, pika)
+  mainloop data
