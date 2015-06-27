@@ -5,20 +5,10 @@
 (*                                                    +:+ +:+         +:+     *)
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
-(*   Created: 2015/06/27 15:19:59 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/27 19:29:53 by jaguillo         ###   ########.fr       *)
+(*   Created: 2015/06/27 19:52:57 by ngoguey           #+#    #+#             *)
+(*   Updated: 2015/06/27 19:52:58 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
-
-let show data =
-	let sprite = Data.sprite_n data 0 in
-	let iid = Sprite.iid sprite in
-	let img = Data.image_n data iid in
-	let d = Sdlvideo.display_format (Image.sdl_ptr img) in
-	let dst = Data.display data in
-	let rect = Sprite.rect sprite (Sprite.new_tmp sprite) in
-	Sdlvideo.blit_surface ~src:d ~src_rect:rect ~dst:dst ();
-	Sdlvideo.flip dst
 
 let rec handle_event ((data, ui) as env) =
 	if Sdlevent.has_event () then
@@ -38,9 +28,9 @@ let rec mainloop (data, ui) =
 	match handle_event (data, ui) with
 	| Try.Failure (_)			-> ()
 	| Try.Success (data)		->
-		show data;
 		let ui = ui#update data in
 		ui#draw data;
+		Sdlvideo.flip (Data.display data);
 		mainloop (data, ui)
 
 let () =
@@ -49,5 +39,6 @@ let () =
 	Sdlevent.enable_events Sdlevent.all_events_mask;
 	let data = Data.new_data (Config.w_width, Config.w_height) in
 	mainloop (data, (new UI.group 0 0 Config.w_width Config.w_height [
-		((new UI.text 50 50)#set_text "lolmdr" (Data.font data))
+		((new UI.text 50 50)#set_text "lolmdr" (Data.font data) :> UI.basic_object);
+		(new UI.sprite 100 100 250 250 0);
 	]))

@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:07:56 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/27 18:37:52 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/27 19:41:21 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -68,5 +68,14 @@ class sprite x y w h sprite_i =
 object
 	inherit basic_object x y w h
 	val _sprite_i = sprite_i
-	method draw (env:Data.data) = ()
+	val _dst_rect = Sdlvideo.rect x y w h
+	method draw (env:Data.data) =
+	  let sprite = Data.sprite_n env _sprite_i in
+	  let iid = Sprite.iid sprite in
+	  let img = Data.image_n env iid in
+	  let d = Sdlvideo.display_format (Image.sdl_ptr img) in
+	  let dst = Data.display env in
+	  let rect = Sprite.rect sprite (Sprite.new_tmp sprite) in
+	  Sdlvideo.blit_surface ~src:d ~src_rect:rect ~dst:dst ~dst_rect:_dst_rect ()
+	(* method update (env:Data.data) = *)
 end
