@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:19:59 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/27 17:26:31 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/27 17:47:18 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -27,11 +27,11 @@ let rec wait_key () =
 	Sdlevent.KEYDOWN _ -> ()
   | _ -> wait_key ()
 
-let rec mainloop data =
+let rec mainloop ((data, firstobject) as env) =
   show data;
   (* show (Data.sprite_n data 0) (Data.display data); *)
   wait_key ()
-  (* mainloop data *)
+  (* mainloop env *)
 
 let () =
   Printf.printf "Hello world\n%!";
@@ -42,5 +42,6 @@ let () =
   (* Main loop *)
   (* let img = Image.load_texture "./ressources/Icons.jpg" 0 in *)
   (* let pika = Image.load_texture "./ressources/Pikachu.png" 0 in *)
-  let data = Data.new_data in
-  mainloop data
+  let (winx, winy) as winsize = (500, 500) in
+  let data = Data.new_data winsize in
+  mainloop (data, new UI.group 0 0 winx winy [])

@@ -6,14 +6,14 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:46:20 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/27 17:25:52 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/27 17:35:38 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
 type dat = {sid : int;
 			iid : int;
 			x0 : int; y0 : int;
-			x : int; y : int;
+			w : int; h : int;
 			n : int; ncol : int;
 			def_dt : int}
 
@@ -28,8 +28,8 @@ let update_tmp td elapsed =
   else
 	td
 
-let new_sprite sid iid (x0, y0) (x, y) (n, ncol) def_dt =
-  {sid = sid; iid = iid; x0 = x0; y0 = y0; x = x; y = y; n = n; ncol = ncol;
+let new_sprite sid iid (x0, y0) (w, h) (n, ncol) def_dt =
+  {sid = sid; iid = iid; x0 = x0; y0 = y0; w = w; h = h; n = n; ncol = ncol;
    def_dt = def_dt}
 
 let new_tmp d =
@@ -38,9 +38,8 @@ let new_tmp d =
 let rect d td =
   let line = td.phase / d.ncol in
   let col = td.phase mod d.ncol in
-  let x = d.x0 + d.x * col in
-  let y = d.y0 + d.y * line in
-  Sdlvideo.rect x y d.x d.y
-(* (x, x + d.x, y, y + d.y) *)
+  let x = d.x0 + d.w * col in
+  let y = d.y0 + d.h * line in
+  Sdlvideo.rect x y d.w d.h
 
 let iid d = d.iid

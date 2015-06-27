@@ -6,19 +6,21 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 16:37:26 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/27 17:12:45 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/27 17:46:55 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
 type data = {
+	winsize: (int * int);
 	display: Sdlvideo.surface;
 	images: Image.t array;
-	sprites: Sprite.dat array;
+	sprites: Sprite.dat array
   }
 
-let new_data =
-  let display = Sdlvideo.set_video_mode 500 500 [`DOUBLEBUF] in
-  {display = display;
+let new_data ((winx, winy) as winsize) =
+  let display = Sdlvideo.set_video_mode winx winy [`DOUBLEBUF] in
+  {winsize = winsize;
+   display = display;
    images =
 	 [|
 	   (Image.load_texture "./ressources/Icons.jpg" 0);
