@@ -1,26 +1,20 @@
 (* ************************************************************************** *)
 (*                                                                            *)
 (*                                                        :::      ::::::::   *)
-(*   Image.ml                                           :+:      :+:    :+:   *)
+(*   Data.ml                                            :+:      :+:    :+:   *)
 (*                                                    +:+ +:+         +:+     *)
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
-(*   Created: 2015/06/27 15:05:37 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/27 16:31:39 by ngoguey          ###   ########.fr       *)
+(*   Created: 2015/06/27 16:37:26 by ngoguey           #+#    #+#             *)
+(*   Updated: 2015/06/27 16:46:10 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
-type t = {tid: int; filename: string; w: int; h: int;
-		  sdlptr: Sdlvideo.surface}
-		   
-let load_texture filename i =
-  let img = Sdlloader.load_image filename in
-  let infos = Sdlvideo.surface_info img in
-  {tid = i
-  ;filename = filename
-  ;w = infos.Sdlvideo.w
-  ;h = infos.Sdlvideo.h
-  ;sdlptr = img}
+type data = {display: Sdlvideo.surface}
 
-let sdl_ptr dat =
-  dat.sdlptr
+let new_data =
+  let display = Sdlvideo.set_video_mode 500 500 [`DOUBLEBUF] in
+  {display = display}
+
+let get_display d =
+  d.display

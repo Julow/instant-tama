@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:46:20 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/27 15:55:51 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/27 16:49:56 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -27,7 +27,8 @@ let get_rect d td =
   let col = d.ncol mod td.phase in
   let x = d.x0 + d.x * col in
   let y = d.y0 + d.y * line in
-  (x, x + d.x, y, y + d.y)
+  Sdlvideo.rect x y d.x d.y
+  (* (x, x + d.x, y, y + d.y) *)
 
 let update_tmp td elapsed =
   if elapsed > td.dt then
