@@ -6,20 +6,33 @@
 #    By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/06/20 11:16:05 by jaguillo          #+#    #+#              #
-#    Updated: 2015/06/27 15:29:27 by jaguillo         ###   ########.fr        #
+#    Updated: 2015/06/27 16:04:30 by jaguillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# Executable name
 NAME := tama
 
+# Dirs
 OBJS_DIR := bin/
 SRCS_DIR := srcs/
 
-SRCS := UI.ml main.ml
+# Sources files (.ml)
+SRCS := UI.ml Image.ml main.ml
 
-FLAGS := -I $(OBJS_DIR)
-LIBS :=
+# Compilation flags
+FLAGS := -I $(OBJS_DIR) -I +sdl
 
+# Linking flags
+LINKS := $(FLAGS) -cclib "`sdl-config --libs`"
+LINKS_BYT := bigarray.cma sdl.cma sdlloader.cma
+LINKS_OPT := bigarray.cmxa sdl.cmxa sdlloader.cmxa
+
+# Compilers
+OCAMLC := ocamlc
+OCAMLOPT := ocamlopt
+
+# Internal
 BYT_OBJS := \
 	$(addprefix $(OBJS_DIR),$(SRCS:.ml=.cmo))
 OPT_OBJS := \
@@ -39,38 +52,38 @@ byt: $(OBJS_DIR)$(NAME).byt
 	@echo "\033[32m$@\033[0m"
 
 $(OBJS_DIR)$(NAME).byt: $(OBJS_DIR) $(BYT_OBJS)
-	@ocamlc $(LIBS) -g -o $@ $(BYT_OBJS)
+	@$(OCAMLC) $(LINKS) $(LINKS_BYT) -g -o $@ $(BYT_OBJS)
 
 opt: $(OBJS_DIR)$(NAME).opt
 	@ln -sf $(OBJS_DIR)$(NAME).opt $(NAME)
 	@echo "\033[32m$@\033[0m"
 
 $(OBJS_DIR)$(NAME).opt: $(OBJS_DIR) $(OPT_OBJS)
-	@ocamlopt $(LIBS) -o $@ $(OPT_OBJS)
+	@$(OCAMLOPT) $(LINKS) $(LINKS_OPT) -o $@ $(OPT_OBJS)
 
 .depend: Makefile $(SRCS_DIR)
 	@ocamldep -I $(SRCS_DIR) $(addprefix $(SRCS_DIR),$(SRCS)) | \
 		sed -E 's;([^ ]+/)?([^ \./]+\.[^ :]+);$(OBJS_DIR)\2;g' > .depend
 
 $(OBJS_DIR)%.cmo: $(SRCS_DIR)%.ml
-	@ocamlc -g $(FLAGS) -o $@ -c $<
+	@$(OCAMLC) -g $(FLAGS) -o $@ -c $<
 	@echo "\033[92m$@\033[0m"
 
 $(OBJS_DIR)%.cmx: $(SRCS_DIR)%.ml
-	@ocamlopt $(FLAGS) -o $@ -c $<
+	@$(OCAMLOPT) $(FLAGS) -o $@ -c $<
 	@echo "\033[92m$@\033[0m"
 
 $(OBJS_DIR)%.cmi: $(SRCS_DIR)%.mli
-	@ocamlopt -I $(OBJS_DIR) -o $@ -c $<
+	@$(OCAMLOPT) -I $(OBJS_DIR) -o $@ -c $<
 	@echo "\033[93m$@\033[0m"
 
 $(OBJS_DIR) $(SRCS_DIR):
 	@mkdir -p $@
 
 i:
-	@for i in $(SRCS); do \
+	@for i in $(addprefix $(SRCS_DIR),$(SRCS)); do \
 		echo "\033[33m --> $$i\033[0m"; \
-		ocamlopt $(FLAGS) -i $$i; \
+		$(OCAMLOPT) $(FLAGS) -i $$i; \
 	done
 
 clean:
@@ -82,6 +95,6 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re opt
+.PHONY: all clean fclean re byt opt
 
 -include .depend
