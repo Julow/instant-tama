@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 16:37:26 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/27 17:39:05 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/27 18:23:10 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -24,14 +24,14 @@ let new_data ((winx, winy) as winsize) =
    display = display;
    images =
 	 [|
-	   (Image.load_texture "./ressources/Icons.jpg" 0);
-	   (Image.load_texture "./ressources/Pikachu.png" 1);
+	   (Image.load_texture Config.icon_path 0);
+	   (Image.load_texture Config.pikatchu_path 1);
 	  |];
    sprites =
 	 [|
 	   (Sprite.new_sprite 0 1 (0, 91) (58, 58) (15, 15) 1000);
 	  |];
-	font = Sdlttf.open_font "ressources/font.ttf" 12
+	font = Sdlttf.open_font Config.font_path Config.font_size
   }
 
 let display d = d.display

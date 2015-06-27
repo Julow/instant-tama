@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:07:56 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/27 17:40:41 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/27 18:37:52 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -59,7 +59,14 @@ object
 		let w, h = Sdlttf.size_text font str in
 		{< _text = str ; _width = w ; _height = h >}
 	method draw (env:Data.data) =
-		let surface = Sdlttf.render_text_solid (Data.font env) _text Sdlvideo.black in
+		let surface = Sdlttf.render_text_solid (Data.font env) _text Sdlvideo.red in
 		let dst_rect = Sdlvideo.rect _x _y _width _height in
 		Sdlvideo.blit_surface ~src:surface ~dst:(Data.display env) ~dst_rect:dst_rect ()
+end
+
+class sprite x y w h sprite_i =
+object
+	inherit basic_object x y w h
+	val _sprite_i = sprite_i
+	method draw (env:Data.data) = ()
 end
