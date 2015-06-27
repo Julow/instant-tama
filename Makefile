@@ -6,7 +6,7 @@
 #    By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/06/20 11:16:05 by jaguillo          #+#    #+#              #
-#    Updated: 2015/06/27 16:45:19 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/06/27 17:10:35 by jaguillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,8 @@ FLAGS := -I $(OBJS_DIR) -I ~/.brew/lib/ocaml/sdl
 
 # Linking flags
 LINKS := $(FLAGS) -cclib "`sdl-config --libs`"
-LINKS_BYT := bigarray.cma sdl.cma sdlloader.cma
-LINKS_OPT := bigarray.cmxa sdl.cmxa sdlloader.cmxa
+LINKS_BYT := bigarray.cma sdl.cma sdlloader.cma sdlttf.cma
+LINKS_OPT := bigarray.cmxa sdl.cmxa sdlloader.cmxa sdlttf.cmxa
 
 # Compilers
 OCAMLC := ocamlc
