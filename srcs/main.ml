@@ -6,15 +6,17 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:19:59 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/27 15:57:13 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/27 16:19:00 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
+
+include Image
 
 let show img dst =
   match img with
   | Image.Failure _		-> ()
-  | Image.Loaded dat		->
-	 let d = Sdlvideo.display_format dat.sdlptr in
+  | Image.Loaded (d: Image.dat)		->
+	 let d = Sdlvideo.display_format d.sdlptr in
 	 Sdlvideo.blit_surface d dst ();
 	 Sdlvideo.flip dst
 
@@ -37,5 +39,5 @@ let () =
   let display = Sdlvideo.set_video_mode 500 500 [`DOUBLEBUF] in
   (* Init les datas *)
   (* Main loop *)
-  let img = Image.load_texture "../ressources/Icons.jpg" 0 in
+  let img = Image.load_texture "./ressources/Icons.jpg" 0 in
   mainloop (display, img)

@@ -6,7 +6,7 @@
 #    By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/06/20 11:16:05 by jaguillo          #+#    #+#              #
-#    Updated: 2015/06/27 16:04:30 by jaguillo         ###   ########.fr        #
+#    Updated: 2015/06/27 16:18:43 by ngoguey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRCS_DIR := srcs/
 SRCS := UI.ml Image.ml main.ml
 
 # Compilation flags
-FLAGS := -I $(OBJS_DIR) -I +sdl
+FLAGS := -I $(OBJS_DIR) -I ~/.brew/lib/ocaml/sdl
 
 # Linking flags
 LINKS := $(FLAGS) -cclib "`sdl-config --libs`"
@@ -43,7 +43,7 @@ GARBAGES := \
 
 all: $(NAME)
 
-$(NAME): $(OBJS_DIR)$(NAME).byt $(OBJS_DIR)$(NAME).opt
+$(NAME): $(OBJS_DIR)$(NAME).opt
 	@ln -sf $(OBJS_DIR)$(NAME).opt $@
 	@echo "\033[32m$@\033[0m"
 
@@ -52,7 +52,7 @@ byt: $(OBJS_DIR)$(NAME).byt
 	@echo "\033[32m$@\033[0m"
 
 $(OBJS_DIR)$(NAME).byt: $(OBJS_DIR) $(BYT_OBJS)
-	@$(OCAMLC) $(LINKS) $(LINKS_BYT) -g -o $@ $(BYT_OBJS)
+	@$(OCAMLC) $(LINKS) $(LINKS_BYT) -o $@ $(BYT_OBJS)
 
 opt: $(OBJS_DIR)$(NAME).opt
 	@ln -sf $(OBJS_DIR)$(NAME).opt $(NAME)
@@ -74,7 +74,7 @@ $(OBJS_DIR)%.cmx: $(SRCS_DIR)%.ml
 	@echo "\033[92m$@\033[0m"
 
 $(OBJS_DIR)%.cmi: $(SRCS_DIR)%.mli
-	@$(OCAMLOPT) -I $(OBJS_DIR) -o $@ -c $<
+	@$(OCAMLOPT) $(LINKS) $(LINKS_OPT) -I $(OBJS_DIR) -o $@ -c $<
 	@echo "\033[93m$@\033[0m"
 
 $(OBJS_DIR) $(SRCS_DIR):
