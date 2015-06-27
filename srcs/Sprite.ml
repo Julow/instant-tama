@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:46:20 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/27 17:35:38 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/27 20:02:17 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -32,8 +32,8 @@ let new_sprite sid iid (x0, y0) (w, h) (n, ncol) def_dt =
   {sid = sid; iid = iid; x0 = x0; y0 = y0; w = w; h = h; n = n; ncol = ncol;
    def_dt = def_dt}
 
-let new_tmp d =
-  {tslu = 0; dt = d.def_dt; phase = 0}
+let new_tmp () =
+  {tslu = 0; dt = 1000; phase = 0}
 
 let rect d td =
   let line = td.phase / d.ncol in
