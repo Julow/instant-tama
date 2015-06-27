@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:46:20 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/27 17:13:27 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/27 17:25:52 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -36,8 +36,8 @@ let new_tmp d =
   {tslu = 0; dt = d.def_dt; phase = 0}
 
 let rect d td =
-  let line = d.ncol / td.phase in
-  let col = d.ncol mod td.phase in
+  let line = td.phase / d.ncol in
+  let col = td.phase mod d.ncol in
   let x = d.x0 + d.x * col in
   let y = d.y0 + d.y * line in
   Sdlvideo.rect x y d.x d.y

@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:19:59 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/27 17:17:40 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/27 17:26:31 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -16,7 +16,9 @@ let show data =
   let img = Data.image_n data iid in
   let d = Sdlvideo.display_format (Image.sdl_ptr img) in
   let dst = Data.display data in
-  Sdlvideo.blit_surface d dst ();
+  let rect = Sprite.rect sprite (Sprite.new_tmp sprite) in
+  (* Sdlvideo.blit_surface d dst (); *)
+  Sdlvideo.blit_surface ~src:d ~src_rect:rect ~dst:dst ();
   Sdlvideo.flip dst
 
 let rec wait_key () =
@@ -29,7 +31,7 @@ let rec mainloop data =
   show data;
   (* show (Data.sprite_n data 0) (Data.display data); *)
   wait_key ()
-(* mainloop data *)
+  (* mainloop data *)
 
 let () =
   Printf.printf "Hello world\n%!";
