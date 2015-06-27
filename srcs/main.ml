@@ -5,8 +5,8 @@
 (*                                                    +:+ +:+         +:+     *)
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
-(*   Created: 2015/06/27 15:19:59 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/27 19:41:32 by ngoguey          ###   ########.fr       *)
+(*   Created: 2015/06/27 19:52:57 by ngoguey           #+#    #+#             *)
+(*   Updated: 2015/06/27 19:52:58 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -16,6 +16,8 @@ let rec handle_event ((data, ui) as env) =
 		| Sdlevent.MOUSEBUTTONDOWN (e)								->
 			handle_event ((ui#on_click e.mbe_x e.mbe_y data), ui)
 		| Sdlevent.KEYDOWN (e) when e.keysym = Sdlkey.KEY_ESCAPE	->
+			Try.fail ()
+		| Sdlevent.QUIT												->
 			Try.fail ()
 		| _															->
 			handle_event env
