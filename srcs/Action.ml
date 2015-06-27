@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 18:15:44 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/27 18:54:06 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/27 19:22:00 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -23,6 +23,6 @@ let n = Array.length details
 
 (** aid: Action id
  ** sv: Stats values *)
-let apply_action aid (sv: Stat.t) =
+let apply_action aid (sv: Stat.t) : Stat.t =
   let (_, _, modifs) = details.(aid) in
   Array.mapi (fun i v -> v +. modifs.(i)) sv
