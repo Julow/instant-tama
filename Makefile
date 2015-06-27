@@ -6,7 +6,7 @@
 #    By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/06/20 11:16:05 by jaguillo          #+#    #+#              #
-#    Updated: 2015/06/27 19:14:33 by jaguillo         ###   ########.fr        #
+#    Updated: 2015/06/27 19:19:02 by jaguillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,12 @@ OBJS_DIR := bin/
 SRCS_DIR := srcs/
 
 # Sources files (.ml)
-SRCS := Try.ml Config.ml Image.ml Sprite.ml Data.ml UI.ml main.ml
+SRCS := \
+		Try.ml Config.ml \
+		Image.ml Sprite.ml Stat.ml Action.ml \
+		Data.ml \
+		UI.ml \
+		main.ml
 
 # Compilation flags
 FLAGS := -I $(OBJS_DIR) -I ~/.brew/lib/ocaml/sdl
