@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 19:52:57 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 19:49:10 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 20:04:47 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -44,15 +44,13 @@ let rec handle_event ((data, ui) as env) =
 	else
 		Try.return env
 
-
 let rec gameoverloop (data, ui, prevtime) =
 	match handle_event (data, ui) with
 	| Try.Failure (_)			-> ()
 	| Try.Success (data, ui)	->
-	   let time = Sdltimer.get_ticks () in
-	   (* let elapsed = time - prevtime in	    *)
-	   gameoverloop (data, ui, time)
-				   
+		let time = Sdltimer.get_ticks () in
+		gameoverloop (data, ui, time)
+
 let rec mainloop (data, ui, prevtime) =
 	match handle_event (data, ui) with
 	| Try.Failure (_)			-> ()
@@ -61,7 +59,7 @@ let rec mainloop (data, ui, prevtime) =
 		let elapsed = time - prevtime in
 		let data = Data.decay_pikastat data elapsed in
 		let data, ui = ui#update data elapsed in
-		Stat.save_to_file (Data.pikastat data);
+		Stat.save_to_file (Data.pikastats data);
 		ui#draw (0, 0) data;
 		Sdlvideo.flip (Data.display data);
 		if Stat.any_depleted (Data.pikastats data) then begin
@@ -69,9 +67,8 @@ let rec mainloop (data, ui, prevtime) =
 			ui#draw (0, 0) data;
 			Sdlvideo.flip (Data.display data);
 			gameoverloop (data, ui, prevtime)
-		  end
-		else
-		  mainloop (data, ui, time)
+		end else
+			mainloop (data, ui, time)
 
 let is = Config.is
 let ibs = Config.ibs
