@@ -6,7 +6,7 @@
 #    By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/06/20 11:16:05 by jaguillo          #+#    #+#              #
-#    Updated: 2015/06/28 12:25:07 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/06/28 20:35:35 by jaguillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,8 @@ FLAGS := -I $(OBJS_DIR) -I ~/.brew/lib/ocaml/sdl
 
 # Linking flags
 LINKS := $(FLAGS) -cclib "`sdl-config --libs`"
-LINKS_BYT := bigarray.cma sdl.cma sdlloader.cma sdlttf.cma sdlgfx.cma
-LINKS_OPT := bigarray.cmxa sdl.cmxa sdlloader.cmxa sdlttf.cmxa sdlgfx.cmxa
+LINKS_BYT := bigarray.cma sdl.cma sdlloader.cma sdlttf.cma sdlgfx.cma sdlmixer.cma
+LINKS_OPT := bigarray.cmxa sdl.cmxa sdlloader.cmxa sdlttf.cmxa sdlgfx.cmxa sdlmixer.cmxa
 
 # Compilers
 OCAMLC := ocamlc
@@ -48,7 +48,7 @@ GARBAGES := \
 
 all: $(NAME)
 
-$(NAME): $(OBJS_DIR)$(NAME).opt
+$(NAME): $(OBJS_DIR)$(NAME).opt $(OBJS_DIR)$(NAME).byt
 	@ln -sf $(OBJS_DIR)$(NAME).opt $@
 	@echo "\033[32m$@\033[0m"
 

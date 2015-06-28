@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 17:54:32 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/28 20:28:18 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 20:33:03 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -30,6 +30,8 @@ let fill2_path = "ressources/Generic2.png"
 let fill3_path = "ressources/Generic3.png"
 let iconalert = "ressources/IconAlert.png"
 let iconalertants = "ressources/IconAlertAnts.png"
+
+let die_sound_path = "ressources/die.wav"
 				   
 let font_path = "ressources/font.ttf"
 let font_size = 83

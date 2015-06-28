@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 19:52:57 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 20:39:26 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 20:37:59 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -52,6 +52,14 @@ let rec gameoverloop (data, ui, prevtime) =
 		let time = Sdltimer.get_ticks () in
 		gameoverloop (data, ui, time)
 
+let gameover_sound () =
+	try begin
+		Sdlmixer.open_audio ();
+		let music = Sdlmixer.load_music Config.die_sound_path in
+		Sdlmixer.play_music ~loops:1 music
+	end with
+	| _				-> ()
+
 let rec mainloop (data, ui, prevtime) =
 	match handle_event (data, ui) with
 	| Try.Failure (_)			-> ()
@@ -67,6 +75,7 @@ let rec mainloop (data, ui, prevtime) =
 			let data = Data.set_pikadat data (Sprite.new_tmp_pika ~sid:19 200) in
 			ui#draw (0, 0) data;
 			Sdlvideo.flip (Data.display data);
+			gameover_sound ();
 			gameoverloop (data, ui, prevtime)
 		end else
 			mainloop (data, ui, time)
@@ -133,6 +142,6 @@ let main data =
 	]), Sdltimer.get_ticks ())
 
 let () =
-	(* try *) init (); main (Data.new_data (Config.w_width, Config.w_height)) (* with
+	try init (); main (Data.new_data (Config.w_width, Config.w_height)) with
 	| Failure (e)			-> print_endline ("Error: " ^ e)
-	| _						-> print_endline "Error: Cannot load" *)
+	| _						-> print_endline "Error: Cannot load"
