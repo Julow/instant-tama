@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:07:56 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/28 12:50:55 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 15:38:30 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -16,27 +16,39 @@ object
 	val _y = y
 	val _width = w
 	val _height = h
+	val _pressed = false
+	val _hover = false
 
+	method _on_event (x:int) (y:int) press hover = {< _pressed = press ; _hover = hover >}
 	method on_click (x:int) (y:int) (env:Data.data) = env
 	method update (env:Data.data) = {< >}
-	method virtual draw :int * int -> Data.data -> unit
+	method virtual draw : int * int -> Data.data -> unit
 
-	method x = _x
-	method y = _y
+	method x :int = _x
+	method y :int = _y
 	method width = _width
 	method height = _height
+	method pressed = _pressed
+	method hover = _hover
 
-	method is_in x y =
-		let right = _x + _width in
-		let bottom = _y + _height in
-		x >= _x && y >= _y && x < right && y < bottom
+	method is_in x y = x >= 0 && y >= 0 && x < _width && y < _height
 end
 
-class group x y w h childs =
+class group x y w h (childs:basic_object list) =
 object
 	inherit basic_object x y w h
 
 	val _childs = childs
+
+	method _on_event (x:int) (y:int) press hover = {< _pressed = press ; _hover = hover ;
+		_childs = List.map (fun c ->
+			let x' = x - (c#x) in
+			let y' = y - (c#y) in
+			if c#is_in x' y' then
+				c#_on_event x' y' press hover
+			else
+				c#_on_event x' y' false false
+		) _childs >}
 
 	method on_click x y (env:Data.data) =
 		let rec loop = function
@@ -45,6 +57,7 @@ object
 			| head::tail						-> loop tail
 		in
 		loop _childs
+
 	method draw (x, y) (env:Data.data) =
 	  List.iter (fun c -> c#draw (x + c#x, y + c#y) env) _childs
 	method update (env:Data.data) = {< _childs = List.map (fun c ->
@@ -60,7 +73,14 @@ object
 		let w, h = Sdlttf.size_text font str in
 		{< _text = str ; _width = w ; _height = h >}
 	method draw (x, y) (env:Data.data) =
-		let surface = Sdlttf.render_text_solid (Data.font env) _text Sdlvideo.red in
+		let surface =
+			if _pressed then
+				Sdlttf.render_text_solid (Data.font env) _text Sdlvideo.red
+			else if _hover then
+				Sdlttf.render_text_solid (Data.font env) _text Sdlvideo.green
+			else
+				Sdlttf.render_text_solid (Data.font env) _text Sdlvideo.blue
+		in
 		let dst_rect = Sdlvideo.rect x y _width _height in
 		Sdlvideo.blit_surface ~src:surface ~dst:(Data.display env) ~dst_rect:dst_rect ()
 end
@@ -71,10 +91,10 @@ object
 	val _sprite_i = sprite_i
 	val _sprite_state = Sprite.new_tmp ()
 	method draw (x, y) (env:Data.data) =
-	  let sprite = Data.sprite_n env _sprite_i in
-	  let img = Sprite.sdl_ptr sprite in	  
-	  let dst = Data.display env in
-	  let rect = Sprite.rect sprite _sprite_state in
-	  let dst_rect = Sdlvideo.rect x y 0 0 in
-	  Sdlvideo.blit_surface ~src:img ~src_rect:rect ~dst:dst ~dst_rect:dst_rect ()
+		let sprite = Data.sprite_n env _sprite_i in
+		let img = Sprite.sdl_ptr sprite in
+		let dst = Data.display env in
+		let rect = Sprite.rect sprite _sprite_state in
+		let dst_rect = Sdlvideo.rect x y 0 0 in
+		Sdlvideo.blit_surface ~src:img ~src_rect:rect ~dst:dst ~dst_rect:dst_rect ()
 end
