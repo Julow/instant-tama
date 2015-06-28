@@ -6,23 +6,25 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 19:52:57 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 15:38:41 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/28 16:09:36 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
 let rec handle_event ((data, ui) as env) =
 	if Sdlevent.has_event () then
 		match Sdlevent.wait_event () with
-		| Sdlevent.MOUSEBUTTONDOWN (e)								->
-			let x = e.mbe_x in
-			let y = e.mbe_y in
+		| Sdlevent.MOUSEBUTTONDOWN
+				{Sdlevent.mbe_x = x ; Sdlevent.mbe_y = y}			->
 			let ui = ui#_on_event x y true true in
 			handle_event ((ui#on_click x y data), ui)
-		| Sdlevent.MOUSEBUTTONUP (e)								->
-			handle_event (data, (ui#_on_event e.mbe_x e.mbe_y false false))
-		| Sdlevent.MOUSEMOTION (e)									->
-			handle_event (data, (ui#_on_event e.mme_x e.mme_y false true))
-		| Sdlevent.KEYDOWN (e) when e.keysym = Sdlkey.KEY_ESCAPE	->
+		| Sdlevent.MOUSEBUTTONUP
+				{Sdlevent.mbe_x = x ; Sdlevent.mbe_y = y}			->
+			handle_event (data, (ui#_on_event x y false false))
+		| Sdlevent.MOUSEMOTION
+				{Sdlevent.mme_x = x ; Sdlevent.mme_y = y}			->
+			handle_event (data, (ui#_on_event x y false true))
+		| Sdlevent.KEYDOWN
+				{Sdlevent.keysym = k} when k = Sdlkey.KEY_ESCAPE	->
 			Try.fail ()
 		| Sdlevent.QUIT												->
 			Try.fail ()
