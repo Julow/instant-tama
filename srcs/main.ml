@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 19:52:57 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 15:43:41 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 15:38:41 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -14,7 +14,14 @@ let rec handle_event ((data, ui) as env) =
 	if Sdlevent.has_event () then
 		match Sdlevent.wait_event () with
 		| Sdlevent.MOUSEBUTTONDOWN (e)								->
-			handle_event ((ui#on_click e.mbe_x e.mbe_y data), ui)
+			let x = e.mbe_x in
+			let y = e.mbe_y in
+			let ui = ui#_on_event x y true true in
+			handle_event ((ui#on_click x y data), ui)
+		| Sdlevent.MOUSEBUTTONUP (e)								->
+			handle_event (data, (ui#_on_event e.mbe_x e.mbe_y false false))
+		| Sdlevent.MOUSEMOTION (e)									->
+			handle_event (data, (ui#_on_event e.mme_x e.mme_y false true))
 		| Sdlevent.KEYDOWN (e) when e.keysym = Sdlkey.KEY_ESCAPE	->
 			Try.fail ()
 		| Sdlevent.QUIT												->
@@ -22,12 +29,12 @@ let rec handle_event ((data, ui) as env) =
 		| _															->
 			handle_event env
 	else
-		Try.return data
+		Try.return env
 
 let rec mainloop (data, ui) =
 	match handle_event (data, ui) with
 	| Try.Failure (_)			-> ()
-	| Try.Success (data)		->
+	| Try.Success (data, ui)	->
 		let ui = ui#update data in
 		ui#draw (0, 0) data;
 		Sdlvideo.flip (Data.display data);
@@ -104,4 +111,3 @@ let () =
 			   ]);
 			   
 	]))
-			 
