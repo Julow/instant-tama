@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 19:52:57 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 19:15:23 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/28 19:59:26 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -52,6 +52,7 @@ let rec mainloop (data, ui, prevtime) =
 		let elapsed = time - prevtime in
 		let data = Data.decay_pikastat data elapsed in
 		let data, ui = ui#update data elapsed in
+		Stat.save_to_file (Data.pikastat data);
 		ui#draw (0, 0) data;
 		Sdlvideo.flip (Data.display data);
 		mainloop (data, ui, time)
@@ -68,12 +69,7 @@ let init () =
 	Sdlttf.init ();
 	Sdlevent.enable_events Sdlevent.all_events_mask
 
-let () =
-	begin
-		try init () with
-		| exn					-> print_endline "Cannot init SDL"; ignore (exit 1)
-	end;
-	let data = Data.new_data (Config.w_width, Config.w_height) in
+let main data =
 	mainloop (data, (new UI.group 0 0 Config.w_width Config.w_height [
 		(new UI.sprite 0 0 301 331 1 :> UI.basic_object);
 		((new UI.text 50 350)#set_text "lolmdr" (Data.font data) :> UI.basic_object);
@@ -120,3 +116,8 @@ let () =
 			]);
 		]);
 	]), Sdltimer.get_ticks ())
+
+let () =
+	(* try *) init (); main (Data.new_data (Config.w_width, Config.w_height)) (* with
+	| Failure (e)			-> print_endline ("Error: " ^ e)
+	| _						-> print_endline "Error: Cannot load" *)

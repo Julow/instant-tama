@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 16:37:26 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 19:12:22 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/28 19:33:02 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -117,7 +117,7 @@ let new_data ((winx, winy) as winsize) =
 	sprites = sprites;
 	font = Sdlttf.open_font Config.font_path Config.font_size;
 	pikadat = Sprite.new_tmp_pika 1000;
-	pikastats = Stat.default_status ();
+	pikastats = Stat.load_stats ();
   }
 
 let display d = d.display

@@ -6,13 +6,15 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 17:54:32 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/28 18:10:38 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/28 19:33:15 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
 (* 301 331 *)
 let w_width = 602
 let w_height = 662
+
+let save_path = "save.itama"
 
 let bg_path = "ressources/Backgrounds.png"
 let icon_path = "ressources/Icons.png"
