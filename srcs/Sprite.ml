@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:46:20 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 12:25:27 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 14:12:56 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -22,6 +22,11 @@ type dat = {sid : int;
 type tmpdat = {tslu : int;
 			   dt : int;
 			   phase : int}
+
+type tmpdatpika = {tslu : int;
+				   dt : int;
+				   phase : int;
+				   spriteid : int;}
 
 
 let update_tmp td elapsed =
@@ -53,10 +58,14 @@ let new_sprite sid iid img (x0, y0) (iw, ih) (n, ncol) (reqw, reqh) def_dt =
 	sdl_ptr = newzone
   }
 
-let new_tmp () =
+let new_tmp () : tmpdat =
   {tslu = 0; dt = 1000; phase = 0}
-
-let rect d td =
+	
+let new_tmp_pika () : tmpdatpika =
+  {tslu = 0; dt = 1000; phase = 0; spriteid = 1}
+	
+	
+let rect (d : dat) (td: tmpdat) =
   let line = td.phase / d.ncol in
   let col = td.phase mod d.ncol in
   let x = d.x0 + d.iw * col in
