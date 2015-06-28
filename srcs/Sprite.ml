@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:46:20 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 16:48:25 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 17:20:42 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -48,7 +48,7 @@ let update_tmp (td: tmpdat) elapsed =
 let new_sprite sid iid img (x0, y0) (iw, ih) (n, ncol) (reqw, reqh) def_dt =  
   let img = Sdlvideo.display_format img ~alpha:true in
   let (zoomw, zoomh) = (float reqw /. float iw, float reqh /. float ih) in
-  let newzone = Sdlgfx.zoomSurface img zoomw zoomh true in
+  let newzone = Sdlgfx.zoomSurface img zoomw zoomh false in
   {
 	sid = sid;
 	x0 = truncate (float x0 *. zoomw); y0 = truncate (float y0 *. zoomh);

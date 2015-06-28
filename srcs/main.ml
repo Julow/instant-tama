@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 19:52:57 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 16:58:43 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 17:25:10 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -51,7 +51,7 @@ let iss = Config.iss
 let ps = Config.pik_size
 let bw = Config.bar_width
 let bh = Config.bar_height
-		   
+
 let () =
 	Sdl.init [`EVERYTHING];
 	Sdlttf.init ();
@@ -59,30 +59,18 @@ let () =
 	let data = Data.new_data (Config.w_width, Config.w_height) in
 	mainloop (data, (new UI.group 0 0 Config.w_width Config.w_height [
 		(new UI.sprite 0 0 301 331 1 :> UI.basic_object);
- 		((new UI.text 50 350)#set_text "lolmdr" (Data.font data) :> UI.basic_object);
+		((new UI.text 50 350)#set_text "lolmdr" (Data.font data) :> UI.basic_object);
 		(new UI.pika Config.pik_horiz_pos Config.pik_vert_pos ps ps 0);
 
 		(new UI.group Config.icon_group_horizontal_pos
-			 Config.icon_group_vertical_pos
-			 Config.icon_group_width ibs
-			 [
-			   (new UI.group 0 0 ibs ibs [
-					  (new UI.sprite iss iss is is 2);
-					  (new UI.sprite 0 0 ibs ibs 3);
-					]);
-			   (new UI.group Config.icon2_delta 0 ibs ibs [
-					  (new UI.sprite iss iss is is 4);
-					  (new UI.sprite 0 0 ibs ibs 3);
-					]);
-			   (new UI.group Config.icon3_delta 0 ibs ibs [
-					  (new UI.sprite iss iss is is 5);
-					  (new UI.sprite 0 0 ibs ibs 3);
-					]);
-			   (new UI.group Config.icon4_delta 0 ibs ibs [
-					  (new UI.sprite iss iss is is 6);
-					  (new UI.sprite 0 0 ibs ibs 3);
-					]);
-			 ]
+			Config.icon_group_vertical_pos
+			Config.icon_group_width ibs
+			[
+				(new UI.button 0 0 ibs ibs 0 2);
+				(new UI.button Config.icon2_delta 0 ibs ibs 1 4);
+				(new UI.button Config.icon3_delta 0 ibs ibs 2 5);
+				(new UI.button Config.icon4_delta 0 ibs ibs 3 6);
+			]
 		);
 		(new UI.group
 			 (Config.bar_group_horiz_margin)
@@ -91,12 +79,12 @@ let () =
 				 (* HPBAR *)
 			   (new UI.group 0 0 bw bh [
 					  (new UI.sprite 0 0 bw bh 10);
-					  (new UI.bar 0 0 bw bh 14 0);					  
+					  (new UI.bar 0 0 bw bh 14 0);
 					]);
 			   (* ENERGYBAR *)
 			   (new UI.group 0 bh bw bh [
 					  (new UI.sprite 0 0 bw bh 11);
-					  (new UI.bar 0 0 bw bh 14 1);					  
+					  (new UI.bar 0 0 bw bh 14 1);
 					]);
 			   ]);
 		  (new UI.group
@@ -106,13 +94,13 @@ let () =
 				 (* HYGYENEBAR *)
 			   (new UI.group 0 0 bw bh [
 					  (new UI.sprite 0 0 bw bh 12);
-					  (new UI.bar 0 0 bw bh 16 2);					  
+					  (new UI.bar 0 0 bw bh 16 2);
 					]);
 			   (* HAPPYNESSBAR *)
 			   (new UI.group 0 bh bw bh [
 					  (new UI.sprite 0 0 bw bh 13);
-					  (new UI.bar 0 0 bw bh 16 3);					  
+					  (new UI.bar 0 0 bw bh 16 3);
 					]);
 			   ]);
-			   
+
 	]), Sdltimer.get_ticks ())

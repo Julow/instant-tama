@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:07:56 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/28 16:43:46 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/28 17:23:47 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -53,8 +53,13 @@ object
 	method on_click x y (env:Data.data) =
 		let rec loop = function
 			| []								-> env
-			| head::tail when head#is_in x y	-> head#on_click x y env
-			| head::tail						-> loop tail
+			| head::tail						->
+				let x' = x - head#x in
+				let y' = y - head#y in
+				if head#is_in x' y' then
+					head#on_click x' y' env
+				else
+					loop tail
 		in
 		loop _childs
 
@@ -94,8 +99,10 @@ end
 class sprite x y w h sprite_i =
 object
 	inherit basic_object x y w h
+
 	val _sprite_i = sprite_i
 	val _sprite_state = Sprite.new_tmp ()
+
 	method draw (x, y) (env:Data.data) =
 		let sprite = Data.sprite_n env _sprite_i in
 		let img = Sprite.sdl_ptr sprite in
@@ -103,6 +110,7 @@ object
 		let rect = Sprite.rect sprite _sprite_state in
 		let dst_rect = Sdlvideo.rect x y 0 0 in
 		Sdlvideo.blit_surface ~src:img ~src_rect:rect ~dst:dst ~dst_rect:dst_rect ()
+
 	method update (env:Data.data) (elapsed:int) =
 		(env, {< _sprite_state = Sprite.update_tmp _sprite_state elapsed >})
 
@@ -111,6 +119,7 @@ end
 class pika x y w h sprite_i =
 object
 	inherit sprite x y w h sprite_i
+
 	method draw (x, y) (env:Data.data) =
 		let sprite_state = Data.pikadat env in
 		let sprite = Data.sprite_n env (Sprite.pikasprite_i sprite_state) in
@@ -121,10 +130,12 @@ object
 		Sdlvideo.blit_surface ~src:img ~src_rect:rect ~dst:dst ~dst_rect:dst_rect ()
 end
 
-class bar  x y w h sprite_i stat_i =
+class bar x y w h sprite_i stat_i =
 object
-  inherit sprite x y w h sprite_i
-  val _stat_i = stat_i
+	inherit sprite x y w h sprite_i
+
+	val _stat_i = stat_i
+
 	method draw (x, y) (env:Data.data) =
 		let sprite = Data.sprite_n env _sprite_i in
 		let img = Sprite.sdl_ptr sprite in
@@ -133,8 +144,18 @@ object
 		let rect = Sprite.rectbar sprite statval in
 		let dst_rect = Sdlvideo.rect x y 0 0 in
 		Sdlvideo.blit_surface ~src:img ~src_rect:rect ~dst:dst ~dst_rect:dst_rect ()
+end
 
-  
-  
-  
+class button x y w h action_i icon_i =
+object
+	inherit group x y w h [
+		(new sprite Config.iss Config.iss Config.is Config.is icon_i);
+		(new sprite 0 0 Config.ibs Config.ibs 3);
+	] as super
+
+	val _action_i = action_i
+
+	method on_click x y (env:Data.data) =
+		let env = super#on_click x y env in
+		Data.action_pikastat env _action_i
 end
