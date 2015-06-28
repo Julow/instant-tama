@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 17:54:32 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/28 14:58:49 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 15:38:26 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -19,6 +19,13 @@ let icon_path = "ressources/Icons.png"
 let iconborder_path = "ressources/IconBorder.png"
 (* let pikatchu_path = "ressources/Pikachu.png" *)
 let pikatchu_path = "ressources/Pikachu_transp.png"
+let hpbar_path = "ressources/Healh_bar.png"
+let manabar_path = "ressources/Energy_bar.png"
+let hygbar_path = "ressources/Hygiene_bar.png"
+let hapbar_path = "ressources/Hapyness_bar.png"
+let fill1_path = "ressources/Generic1.png"
+let fill2_path = "ressources/Generic2.png"
+let fill3_path = "ressources/Generic3.png"
 
 let font_path = "ressources/font.ttf"
 let font_size = 16
@@ -54,8 +61,21 @@ let icon_group_width = (4 * ibs + 3 * icons_margin)
 let icon_group_horizontal_pos = (w_width - icon_group_width) / 2
 let icon_group_vertical_pos = 662 - icon_group_horizontal_pos / 2 - ibs
 
+(* ****************************** BAR VALUES ******************************** *)
+let bar_width = 250
+let bar_ratio = 0.2
+let bar_height = truncate (float bar_width *. bar_ratio)
+let bar_group_vert_margin = 5
+let bar_group_horiz_margin = 30
+
+
 (* **************************** PIKACHU VALUES ****************************** *)
 let pik_size = 340
 let pik_horiz_pos = (w_width - pik_size) / 2
-let pik_vert_pos = (w_height - (w_height - icon_group_vertical_pos) - pik_size) / 2
+
+let bot_group_height = (w_height - icon_group_vertical_pos)
+let top_group_height = (bar_group_vert_margin * 2 + bar_height * 2)
+let pik_vert_pos = top_group_height +
+					 (w_height - top_group_height - bot_group_height
+					  - pik_size) / 2
 				  
