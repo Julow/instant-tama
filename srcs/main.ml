@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 19:52:57 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 20:07:38 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 20:04:47 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -45,15 +45,13 @@ let rec handle_event ((data, ui) as env) =
 	else
 		Try.return env
 
-
 let rec gameoverloop (data, ui, prevtime) =
 	match handle_event (data, ui) with
 	| Try.Failure (_)			-> ()
 	| Try.Success (data, ui)	->
-	   let time = Sdltimer.get_ticks () in
-	   (* let elapsed = time - prevtime in	    *)
-	   gameoverloop (data, ui, time)
-				   
+		let time = Sdltimer.get_ticks () in
+		gameoverloop (data, ui, time)
+
 let rec mainloop (data, ui, prevtime) =
 	match handle_event (data, ui) with
 	| Try.Failure (_)			-> ()
@@ -62,6 +60,7 @@ let rec mainloop (data, ui, prevtime) =
 		let elapsed = time - prevtime in
 		let data = Data.decay_pikastat data elapsed in
 		let data, ui = ui#update data elapsed in
+		Stat.save_to_file (Data.pikastats data);
 		ui#draw (0, 0) data;
 		Sdlvideo.flip (Data.display data);
 		if Stat.any_depleted (Data.pikastats data) then begin
@@ -69,9 +68,8 @@ let rec mainloop (data, ui, prevtime) =
 			ui#draw (0, 0) data;
 			Sdlvideo.flip (Data.display data);
 			gameoverloop (data, ui, prevtime)
-		  end
-		else
-		  mainloop (data, ui, time)
+		end else
+			mainloop (data, ui, time)
 
 let is = Config.is
 let ibs = Config.ibs
@@ -85,12 +83,7 @@ let init () =
 	Sdlttf.init ();
 	Sdlevent.enable_events Sdlevent.all_events_mask
 
-let () =
-	begin
-		try init () with
-		| exn					-> print_endline "Cannot init SDL"; ignore (exit 1)
-	end;
-	let data = Data.new_data (Config.w_width, Config.w_height) in
+let main data =
 	mainloop (data, (new UI.group 0 0 Config.w_width Config.w_height [
 		(new UI.background 0 0 301 331 1 :> UI.basic_object);
 		(new UI.pika Config.pik_horiz_pos Config.pik_vert_pos ps ps 0);
@@ -137,3 +130,8 @@ let () =
 			]);
 		]);
 	]), Sdltimer.get_ticks ())
+
+let () =
+	(* try *) init (); main (Data.new_data (Config.w_width, Config.w_height)) (* with
+	| Failure (e)			-> print_endline ("Error: " ^ e)
+	| _						-> print_endline "Error: Cannot load" *)

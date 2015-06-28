@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 17:53:27 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 19:24:51 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 20:11:10 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -21,6 +21,41 @@ let details = [|
 |]
 
 let default_status () = [|100.; 100.; 100.; 100.|]
+
+let save_to_file stats =
+	try begin
+		let chan = open_out Config.save_path in
+		let rec write_loop i =
+			if i < 0 then
+				close_out chan
+			else
+				output_string chan (string_of_float stats.(i));
+				output_char chan '\n';
+				write_loop (i - 1)
+		in
+		write_loop 3
+	end with
+	| _					-> ()
+
+let load_from_file () =
+	let chan = open_in Config.save_path in
+	let rec read_loop i stats =
+		if i < 0 then begin
+			close_in chan; stats
+		end else
+			let f = float_of_string (input_line chan) in
+			if f < 0. || f > 100. then
+				failwith "Bad stat"
+			else begin
+				stats.(i) <- f;
+				read_loop (i - 1) stats
+			end
+	in
+	read_loop 3 ([|100.; 100.; 100.; 100.|])
+
+let load_stats () =
+	try load_from_file () with
+	| _						-> default_status ()
 
 let n = Array.length details
 

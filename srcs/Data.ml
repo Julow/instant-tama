@@ -119,7 +119,7 @@ let new_data ((winx, winy) as winsize) =
 	sprites = sprites;
 	font = Sdlttf.open_font Config.font_path Config.font_size;
 	pikadat = Sprite.new_tmp_pika 1000;
-	pikastats = Stat.default_status ();
+	pikastats = Stat.load_stats ();
 	bgid = 0;
   }
 

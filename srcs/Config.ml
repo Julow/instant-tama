@@ -14,6 +14,8 @@
 let w_width = 602
 let w_height = 662
 
+let save_path = "save.itama"
+
 let bg_path = "ressources/Backgrounds.png"
 let icon_path = "ressources/Icons.png"
 let iconborder_path = "ressources/IconBorder.png"
