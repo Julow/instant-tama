@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 19:52:57 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 17:34:02 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 18:59:34 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -52,10 +52,16 @@ let ps = Config.pik_size
 let bw = Config.bar_width
 let bh = Config.bar_height
 
-let () =
+let init () =
 	Sdl.init [`EVERYTHING];
 	Sdlttf.init ();
-	Sdlevent.enable_events Sdlevent.all_events_mask;
+	Sdlevent.enable_events Sdlevent.all_events_mask
+
+let () =
+	begin
+		try init () with
+		| exn					-> print_endline "Cannot init SDL"; ignore (exit 1)
+	end;
 	let data = Data.new_data (Config.w_width, Config.w_height) in
 	mainloop (data, (new UI.group 0 0 Config.w_width Config.w_height [
 		(new UI.sprite 0 0 301 331 1 :> UI.basic_object);
@@ -73,34 +79,33 @@ let () =
 			]
 		);
 		(new UI.group
-			 (Config.bar_group_horiz_margin)
-			 (Config.bar_group_vert_margin) bw (bh * 2)
-			   [
-				 (* HPBAR *)
-			   (new UI.group 0 0 bw bh [
-					  (new UI.sprite 0 0 bw bh 10);
-					  (new UI.bar 0 0 bw bh 14 0);
-					]);
-			   (* ENERGYBAR *)
-			   (new UI.group 0 bh bw bh [
-					  (new UI.sprite 0 0 bw bh 11);
-					  (new UI.bar 0 0 bw bh 14 1);
-					]);
-			   ]);
-		  (new UI.group
-			 (Config.w_width - Config.bar_group_horiz_margin - bw)
-			 (Config.bar_group_vert_margin) bw (bh * 2)
-			   [
-				 (* HYGYENEBAR *)
-			   (new UI.group 0 0 bw bh [
-					  (new UI.sprite 0 0 bw bh 12);
-					  (new UI.bar 0 0 bw bh 16 2);
-					]);
-			   (* HAPPYNESSBAR *)
-			   (new UI.group 0 bh bw bh [
-					  (new UI.sprite 0 0 bw bh 13);
-					  (new UI.bar 0 0 bw bh 16 3);
-					]);
-			   ]);
-
+			(Config.bar_group_horiz_margin)
+			(Config.bar_group_vert_margin) bw (bh * 2)
+			[
+				(* HPBAR *)
+				(new UI.group 0 0 bw bh [
+					(new UI.sprite 0 0 bw bh 10);
+					(new UI.bar 0 0 bw bh 14 0);
+				]);
+				(* ENERGYBAR *)
+				(new UI.group 0 bh bw bh [
+					(new UI.sprite 0 0 bw bh 11);
+					(new UI.bar 0 0 bw bh 14 1);
+				]);
+			]);
+		(new UI.group
+			(Config.w_width - Config.bar_group_horiz_margin - bw)
+			(Config.bar_group_vert_margin) bw (bh * 2)
+			[
+			(* HYGYENEBAR *)
+			(new UI.group 0 0 bw bh [
+				(new UI.sprite 0 0 bw bh 12);
+				(new UI.bar 0 0 bw bh 16 2);
+			]);
+			(* HAPPYNESSBAR *)
+			(new UI.group 0 bh bw bh [
+				(new UI.sprite 0 0 bw bh 13);
+				(new UI.bar 0 0 bw bh 16 3);
+			]);
+		]);
 	]), Sdltimer.get_ticks ())
