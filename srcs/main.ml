@@ -40,32 +40,43 @@ let rec mainloop (data, ui) =
 		Sdlvideo.flip (Data.display data);
 		mainloop (data, ui)
 
+let is = Config.is
+let ibs = Config.ibs
+let iss = Config.iss
+let ps = Config.pik_size
+			
 let () =
-	Sdl.init [`EVERYTHING];
+Printf.printf "is%d  ibs%d  iss%d\n%!" is ibs iss;
+Sdl.init [`EVERYTHING];
 	Sdlttf.init ();
 	Sdlevent.enable_events Sdlevent.all_events_mask;
 	let data = Data.new_data (Config.w_width, Config.w_height) in
 	mainloop (data, (new UI.group 0 0 Config.w_width Config.w_height [
 		(new UI.sprite 0 0 301 331 1 :> UI.basic_object);
-		((new UI.text 50 50)#set_text "lolmdr" (Data.font data) :> UI.basic_object);
-		(new UI.sprite 10 10 250 250 0 :> UI.basic_object);
+ 		((new UI.text 50 50)#set_text "lolmdr" (Data.font data) :> UI.basic_object);
+		(new UI.sprite Config.pik_horiz_pos Config.pik_vert_pos ps ps 0);
 
-		(new UI.group 100 400 (92 * 4) 92 [
-			(new UI.group 0 0 92 92 [
-				(new UI.sprite 15 15 64 64 2);
-				(new UI.sprite 0 0 92 92 3);
-			]);
-			(new UI.group 92 0 92 92 [
-				(new UI.sprite 15 15 64 64 4);
-				(new UI.sprite 0 0 92 92 3);
-			]);
-			(new UI.group 184 0 92 92 [
-				(new UI.sprite 15 15 64 64 5);
-				(new UI.sprite 0 0 92 92 3);
-			]);
-			(new UI.group 276 0 92 92 [
-				(new UI.sprite 15 15 64 64 6);
-				(new UI.sprite 0 0 92 92 3);
-			]);
-		] :> UI.basic_object)
+		(new UI.group Config.icon_group_horizontal_pos
+			 Config.icon_group_vertical_pos
+			 Config.icon_group_width ibs
+			 [
+			   (new UI.group 0 0 ibs ibs [
+					  (new UI.sprite iss iss is is 2);
+					  (new UI.sprite 0 0 ibs ibs 3);
+					]);
+			   (new UI.group Config.icon2_delta 0 ibs ibs [
+					  (new UI.sprite iss iss is is 4);
+					  (new UI.sprite 0 0 ibs ibs 3);
+					]);
+			   (new UI.group Config.icon3_delta 0 ibs ibs [
+					  (new UI.sprite iss iss is is 5);
+					  (new UI.sprite 0 0 ibs ibs 3);
+					]);
+			   (new UI.group Config.icon4_delta 0 ibs ibs [
+					  (new UI.sprite iss iss is is 6);
+					  (new UI.sprite 0 0 ibs ibs 3);
+					]);
+			 ]
+		)
+		  
 	]))
