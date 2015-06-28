@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:46:20 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 17:57:52 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 19:03:08 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -51,18 +51,21 @@ let new_sprite sid iid img (x0, y0) (iw, ih) (n, ncol) (reqw, reqh) def_dt =
 	sdl_ptr = newzone
   }
 
-let new_tmp () : tmpdat =
-  {tslu = 0; dt = 1000; phase = 0}
+let new_tmp dt : tmpdat =
+  {tslu = 0; dt = dt; phase = 0}
 
 let new_tmp_pika ?(sid = 0) dt : tmpdatpika =
   {tslu = 0; dt = dt; phase = 0; spriteid = sid}
 
 let rect (d : dat) (td: tmpdat) =
-  let phase = td.phase mod d.n in
+  let phase = td.phase mod d.n in	
   let line = phase / d.ncol in
   let col = phase mod d.ncol in
   let x = d.x0 + d.iw * col in
   let y = d.y0 + d.ih * line in
+  if d.n = 25 then begin
+	  Printf.printf "Rendering %2d\n%!" phase
+	end;
   Sdlvideo.rect x y d.iw d.ih
 
 let rectbar (d : dat) status =
@@ -82,8 +85,8 @@ let sdl_ptr dat = dat.sdl_ptr
 let pikasprite_i (d: tmpdatpika) = d.spriteid
 
 let update_tmp (td: tmpdat) elapsed =
-  if elapsed > td.dt then
-	{td with tslu = 0; phase = td.phase + 1}
+  if td.tslu > td.dt then
+	{td with tslu = td.tslu - td.dt; phase = td.phase + 1}
   else
 	{td with tslu = td.tslu + elapsed}
 

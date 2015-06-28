@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 17:54:32 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/28 18:10:38 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/28 18:39:58 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -88,4 +88,4 @@ let top_group_height = (bar_group_vert_margin * 2 + bar_height * 2)
 let pik_vert_pos = top_group_height +
 					 (w_height - top_group_height - bot_group_height
 					  - pik_size) / 2
-let ants_min = 25.
+let ants_min = 35.
