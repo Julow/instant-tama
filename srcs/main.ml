@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 19:52:57 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 16:07:29 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 16:49:24 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -90,12 +90,12 @@ let () =
 				 (* HPBAR *)
 			   (new UI.group 0 0 bw bh [
 					  (new UI.sprite 0 0 bw bh 10);
-					  (new UI.sprite 0 0 bw bh 14);					  
+					  (new UI.bar 0 0 bw bh 14 0);					  
 					]);
 			   (* ENERGYBAR *)
 			   (new UI.group 0 bh bw bh [
 					  (new UI.sprite 0 0 bw bh 11);
-					  (new UI.sprite 0 0 bw bh 14);					  
+					  (new UI.bar 0 0 bw bh 14 1);					  
 					]);
 			   ]);
 		  (new UI.group
@@ -105,12 +105,12 @@ let () =
 				 (* HYGYENEBAR *)
 			   (new UI.group 0 0 bw bh [
 					  (new UI.sprite 0 0 bw bh 12);
-					  (new UI.sprite 0 0 bw bh 16);					  
+					  (new UI.bar 0 0 bw bh 16 2);					  
 					]);
 			   (* HAPPYNESSBAR *)
 			   (new UI.group 0 bh bw bh [
 					  (new UI.sprite 0 0 bw bh 13);
-					  (new UI.sprite 0 0 bw bh 16);					  
+					  (new UI.bar 0 0 bw bh 16 3);					  
 					]);
 			   ]);
 			   

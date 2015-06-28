@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 16:37:26 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 15:53:20 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 16:47:35 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -16,8 +16,8 @@ type data = {
 	sprites: Sprite.dat array;
 	font: Sdlttf.font;
 	pikadat: Sprite.tmpdatpika;
+	pikastats: Stat.t;
   }
-
 
 let is = Config.is
 let ibs = Config.ibs
@@ -104,6 +104,7 @@ let new_data ((winx, winy) as winsize) =
 	sprites = sprites;
 	font = Sdlttf.open_font Config.font_path Config.font_size;
 	pikadat = Sprite.new_tmp_pika ();
+	pikastats = Stat.default_status ();
   }
 
 let display d = d.display
@@ -111,3 +112,4 @@ let sprites d = d.sprites
 let sprite_n d i = d.sprites.(i)
 let font d = d.font
 let pikadat d = d.pikadat
+let pikastat_i d i = d.pikastats.(i)

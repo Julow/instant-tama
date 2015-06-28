@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:07:56 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/28 16:14:35 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 16:47:27 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -99,7 +99,7 @@ object
 		let dst_rect = Sdlvideo.rect x y 0 0 in
 		Sdlvideo.blit_surface ~src:img ~src_rect:rect ~dst:dst ~dst_rect:dst_rect ()
 	method update (env:Data.data) (elapsed: int) =
-	 {< _sprite_state = Sprite.update_tmp _sprite_state elapsed >}
+	  {< _sprite_state = Sprite.update_tmp _sprite_state elapsed >}
 
 end
 
@@ -115,4 +115,22 @@ object
 		let dst_rect = Sdlvideo.rect x y 0 0 in
 		Sdlvideo.blit_surface ~src:img ~src_rect:rect ~dst:dst ~dst_rect:dst_rect ()
 							  
+end
+
+class bar  x y w h sprite_i stat_i =
+object
+  inherit sprite x y w h sprite_i
+  val _stat_i = stat_i
+	method draw (x, y) (env:Data.data) =
+		let sprite = Data.sprite_n env _sprite_i in
+		let img = Sprite.sdl_ptr sprite in
+		let dst = Data.display env in
+		let statval = Data.pikastat_i env _stat_i in
+		let rect = Sprite.rectbar sprite statval in
+		let dst_rect = Sdlvideo.rect x y 0 0 in
+		Sdlvideo.blit_surface ~src:img ~src_rect:rect ~dst:dst ~dst_rect:dst_rect ()
+
+  
+  
+  
 end

@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 17:53:27 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/27 19:21:54 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 16:50:07 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -21,7 +21,7 @@ let details =
 	(3, "Happyness", 0.);
   |]
 
-let default_status =
+let default_status () =
   [|100.; 100.; 100.; 100.|]
 
 let n = Array.length details

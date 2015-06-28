@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:46:20 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 16:10:49 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 16:48:25 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -34,7 +34,7 @@ let update_tmp (td: tmpdat) elapsed =
 	{td with tslu = 0; phase = td.phase + 1}
   else
 	td
-	  
+
 (** sid: sprite id (current)
  ** iid: image id
  ** x0, y0: Point0 coords (in image)
@@ -64,13 +64,16 @@ let new_tmp () : tmpdat =
 let new_tmp_pika () : tmpdatpika =
   {tslu = 0; dt = 1000; phase = 0; spriteid = 7}
 	
-	
 let rect (d : dat) (td: tmpdat) =
   let line = td.phase / d.ncol in
   let col = td.phase mod d.ncol in
   let x = d.x0 + d.iw * col in
   let y = d.y0 + d.ih * line in
   Sdlvideo.rect x y d.iw d.ih
+
+let rectbar (d : dat) status =
+  let right = truncate ((status /. 100.) *. 186.) + 35 in
+  Sdlvideo.rect 0 0 right d.ih
 
 let rectpika (d : dat) (td: tmpdatpika) =
   let line = td.phase / d.ncol in
