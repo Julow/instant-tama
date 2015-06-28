@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 16:37:26 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/27 18:23:10 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/28 10:55:46 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -26,10 +26,12 @@ let new_data ((winx, winy) as winsize) =
 	 [|
 	   (Image.load_texture Config.icon_path 0);
 	   (Image.load_texture Config.pikatchu_path 1);
+	   (Image.load_texture Config.bg_path 2);
 	  |];
    sprites =
 	 [|
 	   (Sprite.new_sprite 0 1 (0, 91) (58, 58) (15, 15) 1000);
+	   (Sprite.new_sprite 1 2 (0, 0) (301, 331) (1, 1) 1000_000);
 	  |];
 	font = Sdlttf.open_font Config.font_path Config.font_size
   }

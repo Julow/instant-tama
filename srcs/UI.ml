@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:07:56 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/27 20:02:55 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 11:02:05 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -74,7 +74,9 @@ object
 	  let sprite = Data.sprite_n env _sprite_i in
 	  let iid = Sprite.iid sprite in
 	  let img = Data.image_n env iid in
-	  let d = Sdlvideo.display_format (Image.sdl_ptr img) in
+	  (* Printf.printf "Rendering from img %s\n%!" (Image.filename img); *)
+	  
+	  let d = Sdlvideo.display_format ~alpha:true (Image.sdl_ptr img) in
 	  let dst = Data.display env in
 	  let rect = Sprite.rect sprite _sprite_state in
 	  Sdlvideo.blit_surface ~src:d ~src_rect:rect ~dst:dst ~dst_rect:_dst_rect ()

@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 19:52:57 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/27 19:52:58 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 11:00:16 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -38,7 +38,9 @@ let () =
 	Sdlttf.init ();
 	Sdlevent.enable_events Sdlevent.all_events_mask;
 	let data = Data.new_data (Config.w_width, Config.w_height) in
-	mainloop (data, (new UI.group 0 0 Config.w_width Config.w_height [
-		((new UI.text 50 50)#set_text "lolmdr" (Data.font data) :> UI.basic_object);
-		(new UI.sprite 100 100 250 250 0);
-	]))
+	mainloop (data, (new UI.group 0 0 Config.w_width Config.w_height
+[
+	(new UI.sprite 0 0 301 331 1 :> UI.basic_object);
+ 	((new UI.text 50 50)#set_text "lolmdr" (Data.font data) :> UI.basic_object);
+	(new UI.sprite 100 100 250 250 0);
+]))
