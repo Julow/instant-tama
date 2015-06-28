@@ -6,7 +6,7 @@
 #    By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/06/20 11:16:05 by jaguillo          #+#    #+#              #
-#    Updated: 2015/06/27 19:51:10 by jaguillo         ###   ########.fr        #
+#    Updated: 2015/06/28 12:25:07 by ngoguey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRCS_DIR := srcs/
 
 # Sources files (.ml)
 SRCS := \
-		Utils.ml Try.ml Config.ml \
+		Try.ml Config.ml \
 		Image.ml Sprite.ml Stat.ml Action.ml \
 		Data.ml \
 		UI.ml \
@@ -30,8 +30,8 @@ FLAGS := -I $(OBJS_DIR) -I ~/.brew/lib/ocaml/sdl
 
 # Linking flags
 LINKS := $(FLAGS) -cclib "`sdl-config --libs`"
-LINKS_BYT := bigarray.cma sdl.cma sdlloader.cma sdlttf.cma
-LINKS_OPT := bigarray.cmxa sdl.cmxa sdlloader.cmxa sdlttf.cmxa
+LINKS_BYT := bigarray.cma sdl.cma sdlloader.cma sdlttf.cma sdlgfx.cma
+LINKS_OPT := bigarray.cmxa sdl.cmxa sdlloader.cmxa sdlttf.cmxa sdlgfx.cmxa
 
 # Compilers
 OCAMLC := ocamlc
