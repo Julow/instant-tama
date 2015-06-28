@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:07:56 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/28 16:33:09 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/28 16:43:46 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -66,7 +66,7 @@ object
 			| []								-> (env, {< _childs = acc >})
 			| head::tail						->
 				let (env, child) = head#update env elapsed in
-				loop env tail (child::acc)
+				loop env tail (acc @ [child])
 		in
 		loop env _childs []
 end
