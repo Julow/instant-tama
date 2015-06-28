@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:07:56 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/28 19:06:42 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/28 19:46:58 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -96,12 +96,29 @@ object
 		Sdlvideo.blit_surface ~src:surface ~dst:(Data.display env) ~dst_rect:dst_rect ()
 end
 
+class gameover x y =
+object
+  inherit text x y as super
+	method draw (x, y) (env:Data.data) =
+		let surface =
+		  Sdlttf.render_text_solid (Data.font env) _text Sdlvideo.blue
+		in
+		if Stat.any_depleted (Data.pikastats env) then begin
+			let dst_rect = Sdlvideo.rect x y _width _height in
+			Sdlvideo.blit_surface ~src:surface ~dst:(Data.display env) ~dst_rect:dst_rect ()
+		  end
+
+end
+  
 class sprite x y w h sprite_i =
 object
 	inherit basic_object x y w h
 
 	val _sprite_i = sprite_i
-	val _sprite_state = Sprite.new_tmp ()
+	val _sprite_state =
+	  match sprite_i with
+	  | 18			-> Sprite.new_tmp 2
+	  | _			-> Sprite.new_tmp 1000
 
 	method draw (x, y) (env:Data.data) =
 		let sprite = Data.sprite_n env _sprite_i in
@@ -157,16 +174,17 @@ object
 	] as super
 
 	val _action_i = action_i
-	val _overlay = new sprite Config.iss Config.iss Config.is Config.is 17
-	val _ants = new sprite Config.iss Config.iss Config.is Config.is 18
+	val _overlay = new sprite 0 ~-1 Config.is Config.is 17
+	val _ants = new sprite Config.iss Config.iss Config.ant_size
+					Config.ant_size 18
 
-	method draw pos env =
-		super#draw pos env;
+	method draw ((x, y) as pos) env =
+	  super#draw pos env;
 		if _hover then
-			_overlay#draw pos env
+			_overlay#draw (x + _overlay#x, y + _overlay#y) env
 		else if (Data.pikastat_i env _action_i) <= Config.ants_min then
-			_ants#draw pos env
-
+			_ants#draw (x + _ants#x, y + _ants#y) env
+	
 	method update env elapsed =
 		let env, super = super#update env elapsed in
 		if (Data.pikastat_i env _action_i) <= Config.ants_min then

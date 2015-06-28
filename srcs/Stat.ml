@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 17:53:27 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 19:49:33 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/28 19:24:51 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -64,3 +64,7 @@ let apply_decay elapsed (sv: t) : t =
 			let (_, _, d) = details.(i) in
 			max (min (v -. (d *. ef /. 1000.)) 100.) 0.
 		) sv
+
+let any_depleted (sv: t) =
+  Array.fold_left (fun prev v -> if prev || v < 1. then true else false)
+				  false sv
