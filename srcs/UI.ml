@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:07:56 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/28 17:23:47 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/28 17:14:59 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -128,6 +128,9 @@ object
 		let rect = Sprite.rectpika sprite sprite_state in
 		let dst_rect = Sdlvideo.rect x y 0 0 in
 		Sdlvideo.blit_surface ~src:img ~src_rect:rect ~dst:dst ~dst_rect:dst_rect ()
+	method update (env:Data.data) (elapsed:int) =
+	  (Data.update_pikadat env elapsed,
+	   {< _sprite_state = Sprite.update_tmp _sprite_state elapsed >})
 end
 
 class bar x y w h sprite_i stat_i =
