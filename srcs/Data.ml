@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 16:37:26 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 20:18:14 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/28 20:35:05 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -111,6 +111,9 @@ let new_data ((winx, winy) as winsize) =
 	  (Sprite.new_sprite 19 1 (Image.sdl_ptr images.(1))
 						 (339, 718) (61, 61) (1, 1) (ps, ps) 500);
 	  
+	  (* ICON BACKGROUNDS *)
+	  (Sprite.new_sprite 20 2 (Image.sdl_ptr images.(2))
+						 (0, 0) (300, 331) (2, 2) (is, is) 2000);
 	  
 	 |] in
   {
@@ -136,8 +139,8 @@ let set_pikadat d pikadat =
 	{d with pikadat = pikadat}
 let action d action_i =
 	match action_i with
-	| 42		-> {d with bgid = d.bgid + 1}
-	| _		->
+	| 4				-> {d with bgid = d.bgid + 1}
+	| _				->
 		let d = {d with pikastats = Action.apply_action action_i d.pikastats} in
 		match action_i with
 		| 1			-> set_pikadat d (Sprite.new_tmp_pika ~sid:7 200)

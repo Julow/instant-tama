@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 17:54:32 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/28 19:48:34 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 20:28:18 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -37,7 +37,7 @@ let font_size = 83
 
 (* ****************************** ICON VALUES ******************************* *)
 (* icon_size *)
-let is = 90
+let is = 75
 
 let icon_size_float = float is
 
@@ -59,8 +59,9 @@ let icons_margin = ~-10
 let icon2_delta = (1 * (icons_margin + ibs))
 let icon3_delta = (2 * (icons_margin + ibs))
 let icon4_delta = (3 * (icons_margin + ibs))
+let icon5_delta = (4 * (icons_margin + ibs))
 
-let icon_group_width = (4 * ibs + 3 * icons_margin)
+let icon_group_width = (5 * ibs + 4 * icons_margin)
 					
 let icon_group_horizontal_pos = (w_width - icon_group_width) / 2
 let icon_group_vertical_pos = 662 - icon_group_horizontal_pos / 2 - ibs

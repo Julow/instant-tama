@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 19:52:57 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 20:18:42 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/28 20:39:26 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -16,7 +16,7 @@ let handle_key data keysym =
 	| Sdlkey.KEY_2				-> Data.action data 1
 	| Sdlkey.KEY_3				-> Data.action data 2
 	| Sdlkey.KEY_4				-> Data.action data 3
-	| Sdlkey.KEY_5				-> Data.action data 42
+	| Sdlkey.KEY_5				-> Data.action data 4
 	| _							-> data
 
 let rec handle_event ((data, ui) as env) =
@@ -97,6 +97,7 @@ let main data =
 				(new UI.button Config.icon2_delta 0 ibs ibs 1 2);
 				(new UI.button Config.icon3_delta 0 ibs ibs 2 5);
 				(new UI.button Config.icon4_delta 0 ibs ibs 3 4);
+				(new UI.button Config.icon5_delta 0 ibs ibs 4 20);
 			]
 		);
 		(new UI.group

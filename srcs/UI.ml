@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:07:56 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/28 20:04:46 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 20:39:14 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -191,12 +191,12 @@ object
 	  super#draw pos env;
 		if _hover then
 			_overlay#draw (x + _overlay#x, y + _overlay#y) env
-		else if (Data.pikastat_i env _action_i) <= Config.ants_min then
+		else if _action_i <> 4 && (Data.pikastat_i env _action_i) <= Config.ants_min then
 			_ants#draw (x + _ants#x, y + _ants#y) env
 	
 	method update env elapsed =
 		let env, super = super#update env elapsed in
-		if (Data.pikastat_i env _action_i) <= Config.ants_min then
+		if _action_i <> 4 && (Data.pikastat_i env _action_i) <= Config.ants_min then
 			let env, ants = _ants#update env elapsed in
 			(env, {< _ants = ants >})
 		else
