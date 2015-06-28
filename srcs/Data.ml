@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 16:37:26 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 20:35:05 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 20:59:32 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -113,7 +113,7 @@ let new_data ((winx, winy) as winsize) =
 	  
 	  (* ICON BACKGROUNDS *)
 	  (Sprite.new_sprite 20 2 (Image.sdl_ptr images.(2))
-						 (0, 0) (300, 331) (2, 2) (is, is) 2000);
+						 (0, 0) (300, 331) (4, 2) (is, is) 2000);
 	  
 	 |] in
   {

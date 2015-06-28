@@ -6,7 +6,7 @@
 #    By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/06/20 11:16:05 by jaguillo          #+#    #+#              #
-#    Updated: 2015/06/28 20:35:35 by jaguillo         ###   ########.fr        #
+#    Updated: 2015/06/28 20:55:52 by ngoguey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ GARBAGES := \
 
 all: $(NAME)
 
-$(NAME): $(OBJS_DIR)$(NAME).opt $(OBJS_DIR)$(NAME).byt
+$(NAME): $(OBJS_DIR)$(NAME).opt
 	@ln -sf $(OBJS_DIR)$(NAME).opt $@
 	@echo "\033[32m$@\033[0m"
 
