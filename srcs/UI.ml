@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:07:56 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/28 17:59:28 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 18:09:05 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -157,6 +157,15 @@ object
 	] as super
 
 	val _action_i = action_i
+	val _overlay = new sprite Config.iss Config.iss Config.is Config.is 17
+	val _ants = new sprite Config.iss Config.iss Config.is Config.is 18
+
+	method draw pos env =
+		super#draw pos env;
+		if _hover then
+			_overlay#draw pos env
+		else if (Data.pikastat_i env _action_i) <= Config.ants_min then
+			_ants#draw pos env
 
 	method on_click x y (env:Data.data) =
 	  let env = super#on_click x y env in
