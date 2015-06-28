@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:07:56 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/28 17:57:19 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 17:59:28 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -166,5 +166,4 @@ object
 	  | 2			-> Data.set_pikadat env (Sprite.new_tmp_pika ~sid:9 500)
 	  | 3			-> Data.set_pikadat env (Sprite.new_tmp_pika ~sid:8 120)
 	  | _			-> env
-						   
 end
