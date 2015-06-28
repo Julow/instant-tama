@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 16:37:26 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 18:14:46 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 18:28:44 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -69,6 +69,8 @@ let new_data ((winx, winy) as winsize) =
 	  (* PIKACHU THUNDER *)
 	  (Sprite.new_sprite 7 1 (Image.sdl_ptr images.(1))
 						 (4, 154) (59, 59) (10, 10) (ps, ps) 200);
+	  (* (Sprite.new_sprite 7 1 (Image.sdl_ptr images.(1)) *)
+	  (* 					 (4, 154) (59, 59) (10, 10) (ps, ps) 200); *)
 	  (* PIKACHU KILL *)
 	  (Sprite.new_sprite 8 1 (Image.sdl_ptr images.(1))
 						 (217, 771) (70, 70) (8, 8) (ps, ps) 120);
