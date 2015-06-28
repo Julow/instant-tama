@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 17:53:27 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 20:11:10 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/28 20:15:43 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -44,7 +44,7 @@ let load_from_file () =
 			close_in chan; stats
 		end else
 			let f = float_of_string (input_line chan) in
-			if f < 0. || f > 100. then
+			if f <= 0. || f > 100. then
 				failwith "Bad stat"
 			else begin
 				stats.(i) <- f;

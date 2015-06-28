@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 16:37:26 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 20:10:45 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 20:18:14 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -131,19 +131,19 @@ let pikadat d = d.pikadat
 let pikastats d = d.pikastats
 let pikastat_i d i = d.pikastats.(i)
 let decay_pikastat d elapsed =
-  {d with pikastats = Stat.apply_decay elapsed d.pikastats}
+	{d with pikastats = Stat.apply_decay elapsed d.pikastats}
 let set_pikadat d pikadat =
-  {d with pikadat = pikadat}
+	{d with pikadat = pikadat}
 let action d action_i =
-  match action_i with
-  | 42		-> {d with bgid = d.bgid + 1}
-  | _		->
-	 let d = {d with pikastats = Action.apply_action action_i d.pikastats} in
-	 match action_i with
-	 | 1			-> set_pikadat d (Sprite.new_tmp_pika ~sid:7 200)
-	 | 2			-> set_pikadat d (Sprite.new_tmp_pika ~sid:9 500)
-	 | 3			-> set_pikadat d (Sprite.new_tmp_pika ~sid:8 120)
-	 | _			-> d
+	match action_i with
+	| 42		-> {d with bgid = d.bgid + 1}
+	| _		->
+		let d = {d with pikastats = Action.apply_action action_i d.pikastats} in
+		match action_i with
+		| 1			-> set_pikadat d (Sprite.new_tmp_pika ~sid:7 200)
+		| 2			-> set_pikadat d (Sprite.new_tmp_pika ~sid:9 500)
+		| 3			-> set_pikadat d (Sprite.new_tmp_pika ~sid:8 120)
+		| _			-> d
 let decay_pikastat d elapsed = {
 	d with pikastats = Stat.apply_decay elapsed d.pikastats}
 let update_pikadat d elapsed = {
