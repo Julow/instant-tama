@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 16:37:26 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 19:18:57 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 19:43:13 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -69,8 +69,6 @@ let new_data ((winx, winy) as winsize) =
 	  (* PIKACHU THUNDER *)
 	  (Sprite.new_sprite 7 1 (Image.sdl_ptr images.(1))
 						 (4, 154) (59, 59) (12, 12) (ps, ps) 200);
-	  (* (Sprite.new_sprite 7 1 (Image.sdl_ptr images.(1)) *)
-	  (* 					 (4, 154) (59, 59) (10, 10) (ps, ps) 200); *)
 	  (* PIKACHU KILL *)
 	  (Sprite.new_sprite 8 1 (Image.sdl_ptr images.(1))
 						 (217, 771) (70, 70) (8, 8) (ps, ps) 120);
@@ -108,6 +106,9 @@ let new_data ((winx, winy) as winsize) =
 	  (Sprite.new_sprite 18 12 (Image.sdl_ptr images.(12))
 						 (0, 0) (48, 48) (22, 5)
 						 (Config.ant_size, Config.ant_size) 1000);
+	  (* PIKACHU DEAD *)
+	  (Sprite.new_sprite 19 1 (Image.sdl_ptr images.(1))
+						 (339, 718) (61, 61) (1, 1) (ps, ps) 500);
 	  
 	  
 	 |] in
@@ -125,6 +126,7 @@ let sprites d = d.sprites
 let sprite_n d i = d.sprites.(i)
 let font d = d.font
 let pikadat d = d.pikadat
+let pikastats d = d.pikastats
 let pikastat_i d i = d.pikastats.(i)
 let decay_pikastat d elapsed =
 	{d with pikastats = Stat.apply_decay elapsed d.pikastats}

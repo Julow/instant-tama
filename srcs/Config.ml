@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 17:54:32 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/28 18:39:58 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 19:48:34 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -30,7 +30,7 @@ let iconalert = "ressources/IconAlert.png"
 let iconalertants = "ressources/IconAlertAnts.png"
 				   
 let font_path = "ressources/font.ttf"
-let font_size = 16
+let font_size = 83
 
 
 (* ****************************** ICON VALUES ******************************* *)

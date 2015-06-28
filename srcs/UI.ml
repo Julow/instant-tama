@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:07:56 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/28 19:19:11 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 19:46:58 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -96,6 +96,20 @@ object
 		Sdlvideo.blit_surface ~src:surface ~dst:(Data.display env) ~dst_rect:dst_rect ()
 end
 
+class gameover x y =
+object
+  inherit text x y as super
+	method draw (x, y) (env:Data.data) =
+		let surface =
+		  Sdlttf.render_text_solid (Data.font env) _text Sdlvideo.blue
+		in
+		if Stat.any_depleted (Data.pikastats env) then begin
+			let dst_rect = Sdlvideo.rect x y _width _height in
+			Sdlvideo.blit_surface ~src:surface ~dst:(Data.display env) ~dst_rect:dst_rect ()
+		  end
+
+end
+  
 class sprite x y w h sprite_i =
 object
 	inherit basic_object x y w h
