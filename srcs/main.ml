@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 19:52:57 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 15:38:41 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/28 16:07:29 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -31,14 +31,16 @@ let rec handle_event ((data, ui) as env) =
 	else
 		Try.return env
 
-let rec mainloop (data, ui) =
+let rec mainloop (data, ui, prevtime) =
 	match handle_event (data, ui) with
 	| Try.Failure (_)			-> ()
 	| Try.Success (data, ui)	->
-		let ui = ui#update data in
+		let time = Sdltimer.get_ticks () in
+		let elapsed = prevtime - time in
+		let ui = ui#update data elapsed in
 		ui#draw (0, 0) data;
 		Sdlvideo.flip (Data.display data);
-		mainloop (data, ui)
+		mainloop (data, ui, time)
 
 let is = Config.is
 let ibs = Config.ibs
@@ -55,7 +57,7 @@ let () =
 	mainloop (data, (new UI.group 0 0 Config.w_width Config.w_height [
 		(new UI.sprite 0 0 301 331 1 :> UI.basic_object);
  		((new UI.text 50 350)#set_text "lolmdr" (Data.font data) :> UI.basic_object);
-		(new UI.sprite Config.pik_horiz_pos Config.pik_vert_pos ps ps 0);
+		(new UI.pika Config.pik_horiz_pos Config.pik_vert_pos ps ps 0);
 
 		(new UI.group Config.icon_group_horizontal_pos
 			 Config.icon_group_vertical_pos
@@ -110,4 +112,4 @@ let () =
 					]);
 			   ]);
 			   
-	]))
+	]), Sdltimer.get_ticks ())

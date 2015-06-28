@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 16:37:26 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 15:40:09 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 15:53:20 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -14,7 +14,8 @@ type data = {
 	winsize: (int * int);
 	display: Sdlvideo.surface;
 	sprites: Sprite.dat array;
-	font: Sdlttf.font
+	font: Sdlttf.font;
+	pikadat: Sprite.tmpdatpika;
   }
 
 
@@ -101,10 +102,12 @@ let new_data ((winx, winy) as winsize) =
 	winsize = winsize;
 	display = display;
 	sprites = sprites;
-	font = Sdlttf.open_font Config.font_path Config.font_size
+	font = Sdlttf.open_font Config.font_path Config.font_size;
+	pikadat = Sprite.new_tmp_pika ();
   }
 
 let display d = d.display
 let sprites d = d.sprites
 let sprite_n d i = d.sprites.(i)
 let font d = d.font
+let pikadat d = d.pikadat
