@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 19:52:57 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 16:07:29 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 16:29:26 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -39,7 +39,7 @@ let rec mainloop (data, ui, prevtime) =
 	| Try.Success (data, ui)	->
 		let time = Sdltimer.get_ticks () in
 		let elapsed = prevtime - time in
-		let ui = ui#update data elapsed in
+		let data, ui = ui#update data elapsed in
 		ui#draw (0, 0) data;
 		Sdlvideo.flip (Data.display data);
 		mainloop (data, ui, time)
