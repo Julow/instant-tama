@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:07:56 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/28 18:09:05 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/28 18:21:54 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -167,13 +167,20 @@ object
 		else if (Data.pikastat_i env _action_i) <= Config.ants_min then
 			_ants#draw pos env
 
+	method update env elapsed =
+		let env, super = super#update env elapsed in
+		if (Data.pikastat_i env _action_i) <= Config.ants_min then
+			let env, ants = _ants#update env elapsed in
+			(env, {< _ants = ants >})
+		else
+			(env, super)
+
 	method on_click x y (env:Data.data) =
-	  let env = super#on_click x y env in
-	  let env = Data.action_pikastat env _action_i in
-	  match _action_i with
-	  | 1			-> Data.set_pikadat env (Sprite.new_tmp_pika ~sid:7 200)
-	  | 2			-> Data.set_pikadat env (Sprite.new_tmp_pika ~sid:9 500)
-	  | 3			-> Data.set_pikadat env (Sprite.new_tmp_pika ~sid:8 120)
-	  | _			-> env
-						   
+		let env = super#on_click x y env in
+		let env = Data.action_pikastat env _action_i in
+		match _action_i with
+		| 1			-> Data.set_pikadat env (Sprite.new_tmp_pika ~sid:7 200)
+		| 2			-> Data.set_pikadat env (Sprite.new_tmp_pika ~sid:9 500)
+		| 3			-> Data.set_pikadat env (Sprite.new_tmp_pika ~sid:8 120)
+		| _			-> env
 end
