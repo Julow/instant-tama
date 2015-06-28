@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 17:53:27 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 16:58:52 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 17:00:31 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -30,6 +30,5 @@ let n = Array.length details
  ** sv: Stats values *)
 let apply_decay elapsed (sv: t) : t =
   let ef = float elapsed in
-  Printf.printf "elapsed = %d\n%!" elapsed;
   Array.mapi (fun i v -> let (_, _, d) = details.(i) in
 						 v -. (d *. ef /. 1000.)) sv

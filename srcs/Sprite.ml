@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:46:20 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 16:48:25 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 17:24:44 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -28,12 +28,18 @@ type tmpdatpika = {tslu : int;
 				   phase : int;
 				   spriteid : int;}
 
-
 let update_tmp (td: tmpdat) elapsed =
   if elapsed > td.dt then
 	{td with tslu = 0; phase = td.phase + 1}
   else
-	td
+	{td with tslu = td.tslu + elapsed}
+
+let update_tmppika (td: tmpdatpika) elapsed =
+  (* Printf.printf "%d > %d = %B\n%!" elapsed td.dt (elapsed > td.dt); *)
+  if td.tslu > td.dt then
+	{td with tslu = 0; phase = td.phase + 1}
+  else
+	{td with tslu = td.tslu + elapsed}
 
 (** sid: sprite id (current)
  ** iid: image id
@@ -62,11 +68,12 @@ let new_tmp () : tmpdat =
   {tslu = 0; dt = 1000; phase = 0}
 	
 let new_tmp_pika () : tmpdatpika =
-  {tslu = 0; dt = 1000; phase = 0; spriteid = 7}
+  {tslu = 0; dt = 200; phase = 0; spriteid = 7}
 	
 let rect (d : dat) (td: tmpdat) =
-  let line = td.phase / d.ncol in
-  let col = td.phase mod d.ncol in
+  let phase = td.phase mod d.n in
+  let line = phase / d.ncol in
+  let col = phase mod d.ncol in
   let x = d.x0 + d.iw * col in
   let y = d.y0 + d.ih * line in
   Sdlvideo.rect x y d.iw d.ih
@@ -76,8 +83,9 @@ let rectbar (d : dat) status =
   Sdlvideo.rect 0 0 right d.ih
 
 let rectpika (d : dat) (td: tmpdatpika) =
-  let line = td.phase / d.ncol in
-  let col = td.phase mod d.ncol in
+  let phase = td.phase mod d.n in
+  let line = phase / d.ncol in
+  let col = phase mod d.ncol in
   let x = d.x0 + d.iw * col in
   let y = d.y0 + d.ih * line in
   Sdlvideo.rect x y d.iw d.ih

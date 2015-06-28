@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 16:37:26 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 16:55:52 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 17:12:07 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -115,3 +115,6 @@ let pikadat d = d.pikadat
 let pikastat_i d i = d.pikastats.(i)
 let decay_pikastat d elapsed = {
 	d with pikastats = Stat.apply_decay elapsed d.pikastats}
+let update_pikadat d elapsed = {
+	d with pikadat = Sprite.update_tmppika d.pikadat elapsed}
+	
