@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 16:37:26 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 19:43:13 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 20:10:45 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -17,6 +17,7 @@ type data = {
 	font: Sdlttf.font;
 	pikadat: Sprite.tmpdatpika;
 	pikastats: Stat.t;
+	bgid: int
   }
 
 let is = Config.is
@@ -25,7 +26,7 @@ let iss = Config.iss
 let ps = Config.pik_size
 let bw = Config.bar_width
 let bh = Config.bar_height
-			  
+		   
 let new_data ((winx, winy) as winsize) =
   let display = Sdlvideo.set_video_mode winx winy [`DOUBLEBUF] in
   let images = [|
@@ -49,7 +50,7 @@ let new_data ((winx, winy) as winsize) =
 						 (0, 91) (58, 58) (15, 15) (ps, ps) 1000);
 	  (* BACKGROUNDS *)
 	  (Sprite.new_sprite 1 2 (Image.sdl_ptr images.(2))
-						 (0, 0) (301, 331) (1, 1)
+						 (0, 0) (300, 331) (2, 2)
 						 (Config.w_width, Config.w_height) 1000);
 	  (* ICON1 *)
 	  (Sprite.new_sprite 2 0 (Image.sdl_ptr images.(0))
@@ -119,6 +120,7 @@ let new_data ((winx, winy) as winsize) =
 	font = Sdlttf.open_font Config.font_path Config.font_size;
 	pikadat = Sprite.new_tmp_pika 1000;
 	pikastats = Stat.default_status ();
+	bgid = 0;
   }
 
 let display d = d.display
@@ -129,17 +131,21 @@ let pikadat d = d.pikadat
 let pikastats d = d.pikastats
 let pikastat_i d i = d.pikastats.(i)
 let decay_pikastat d elapsed =
-	{d with pikastats = Stat.apply_decay elapsed d.pikastats}
+  {d with pikastats = Stat.apply_decay elapsed d.pikastats}
 let set_pikadat d pikadat =
-	{d with pikadat = pikadat}
+  {d with pikadat = pikadat}
 let action d action_i =
-	let d = {d with pikastats = Action.apply_action action_i d.pikastats} in
-	match action_i with
-	| 1			-> set_pikadat d (Sprite.new_tmp_pika ~sid:7 200)
-	| 2			-> set_pikadat d (Sprite.new_tmp_pika ~sid:9 500)
-	| 3			-> set_pikadat d (Sprite.new_tmp_pika ~sid:8 120)
-	| _			-> d
+  match action_i with
+  | 42		-> {d with bgid = d.bgid + 1}
+  | _		->
+	 let d = {d with pikastats = Action.apply_action action_i d.pikastats} in
+	 match action_i with
+	 | 1			-> set_pikadat d (Sprite.new_tmp_pika ~sid:7 200)
+	 | 2			-> set_pikadat d (Sprite.new_tmp_pika ~sid:9 500)
+	 | 3			-> set_pikadat d (Sprite.new_tmp_pika ~sid:8 120)
+	 | _			-> d
 let decay_pikastat d elapsed = {
 	d with pikastats = Stat.apply_decay elapsed d.pikastats}
 let update_pikadat d elapsed = {
 	d with pikadat = Sprite.update_tmppika d.pikadat elapsed}
+let bgid d = d.bgid

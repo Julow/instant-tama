@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 19:52:57 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 19:49:10 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 20:07:38 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -16,6 +16,7 @@ let handle_key data keysym =
 	| Sdlkey.KEY_2				-> Data.action data 1
 	| Sdlkey.KEY_3				-> Data.action data 2
 	| Sdlkey.KEY_4				-> Data.action data 3
+	| Sdlkey.KEY_5				-> Data.action data 42
 	| _							-> data
 
 let rec handle_event ((data, ui) as env) =
@@ -91,7 +92,7 @@ let () =
 	end;
 	let data = Data.new_data (Config.w_width, Config.w_height) in
 	mainloop (data, (new UI.group 0 0 Config.w_width Config.w_height [
-		(new UI.sprite 0 0 301 331 1 :> UI.basic_object);
+		(new UI.background 0 0 301 331 1 :> UI.basic_object);
 		(new UI.pika Config.pik_horiz_pos Config.pik_vert_pos ps ps 0);
 		((new UI.gameover 50 100)#set_text "GAME OVER" (Data.font data) :> UI.basic_object);
 

@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:07:56 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/28 19:46:58 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 20:04:46 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -100,13 +100,8 @@ class gameover x y =
 object
   inherit text x y as super
 	method draw (x, y) (env:Data.data) =
-		let surface =
-		  Sdlttf.render_text_solid (Data.font env) _text Sdlvideo.blue
-		in
-		if Stat.any_depleted (Data.pikastats env) then begin
-			let dst_rect = Sdlvideo.rect x y _width _height in
-			Sdlvideo.blit_surface ~src:surface ~dst:(Data.display env) ~dst_rect:dst_rect ()
-		  end
+	  if Stat.any_depleted (Data.pikastats env) then
+		super#draw (x, y) env
 
 end
   
@@ -121,7 +116,7 @@ object
 	  | _			-> Sprite.new_tmp 1000
 
 	method draw (x, y) (env:Data.data) =
-		let sprite = Data.sprite_n env _sprite_i in
+	  let sprite = Data.sprite_n env _sprite_i in
 		let img = Sprite.sdl_ptr sprite in
 		let dst = Data.display env in
 		let rect = Sprite.rect sprite _sprite_state in
@@ -133,6 +128,20 @@ object
 
 end
 
+class background x y w h sprite_i =
+object
+  inherit sprite x y w h sprite_i as super
+
+	method draw (x, y) (env:Data.data) =
+	  let sprite = Data.sprite_n env _sprite_i in
+		let img = Sprite.sdl_ptr sprite in
+		let dst = Data.display env in
+		let rect = Sprite.rectbg (Data.bgid env) in
+		let dst_rect = Sdlvideo.rect x y 0 0 in
+		Sdlvideo.blit_surface ~src:img ~src_rect:rect ~dst:dst ~dst_rect:dst_rect ()
+									   
+end
+  
 class pika x y w h sprite_i =
 object
 	inherit sprite x y w h sprite_i

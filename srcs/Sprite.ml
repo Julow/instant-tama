@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:46:20 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 19:03:08 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 20:05:16 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -71,6 +71,15 @@ let rect (d : dat) (td: tmpdat) =
 let rectbar (d : dat) status =
   let right = truncate ((status /. 100.) *. 186.) + 35 in
   Sdlvideo.rect 0 0 right d.ih
+
+let rectbg i =
+  let i = i mod 4 in
+  let line = i / 2 in
+  let col = i mod 2 in
+  Sdlvideo.rect (Config.w_width * col)
+				(Config.w_height * line)
+				Config.w_width
+				Config.w_height
 
 let rectpika (d : dat) (td: tmpdatpika) =
   let phase = td.phase mod d.n in
