@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:07:56 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/28 18:21:54 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/28 19:06:42 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -177,10 +177,5 @@ object
 
 	method on_click x y (env:Data.data) =
 		let env = super#on_click x y env in
-		let env = Data.action_pikastat env _action_i in
-		match _action_i with
-		| 1			-> Data.set_pikadat env (Sprite.new_tmp_pika ~sid:7 200)
-		| 2			-> Data.set_pikadat env (Sprite.new_tmp_pika ~sid:9 500)
-		| 3			-> Data.set_pikadat env (Sprite.new_tmp_pika ~sid:8 120)
-		| _			-> env
+		Data.action env action_i
 end

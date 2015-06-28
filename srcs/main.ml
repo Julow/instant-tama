@@ -6,9 +6,17 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 19:52:57 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 18:59:34 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/28 19:15:23 by jaguillo         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
+
+let handle_key data keysym =
+	match keysym with
+	| Sdlkey.KEY_1				-> Data.action data 0
+	| Sdlkey.KEY_2				-> Data.action data 1
+	| Sdlkey.KEY_3				-> Data.action data 2
+	| Sdlkey.KEY_4				-> Data.action data 3
+	| _							-> data
 
 let rec handle_event ((data, ui) as env) =
 	if Sdlevent.has_event () then
@@ -23,9 +31,12 @@ let rec handle_event ((data, ui) as env) =
 		| Sdlevent.MOUSEMOTION
 				{Sdlevent.mme_x = x ; Sdlevent.mme_y = y}			->
 			handle_event (data, (ui#_on_event x y false true))
-		| Sdlevent.KEYDOWN
-				{Sdlevent.keysym = k} when k = Sdlkey.KEY_ESCAPE	->
+		| Sdlevent.KEYDOWN {Sdlevent.keysym = k}
+				when k = Sdlkey.KEY_ESCAPE || k = Sdlkey.KEY_q		->
 			Try.fail ()
+		| Sdlevent.KEYDOWN
+				{Sdlevent.keysym = k}								->
+			handle_event ((handle_key data k), ui)
 		| Sdlevent.QUIT												->
 			Try.fail ()
 		| _															->
