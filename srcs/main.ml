@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 19:52:57 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 17:25:10 by jaguillo         ###   ########.fr       *)
+(*   Updated: 2015/06/28 17:34:02 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -66,10 +66,10 @@ let () =
 			Config.icon_group_vertical_pos
 			Config.icon_group_width ibs
 			[
-				(new UI.button 0 0 ibs ibs 0 2);
-				(new UI.button Config.icon2_delta 0 ibs ibs 1 4);
+				(new UI.button 0 0 ibs ibs 0 6);
+				(new UI.button Config.icon2_delta 0 ibs ibs 1 2);
 				(new UI.button Config.icon3_delta 0 ibs ibs 2 5);
-				(new UI.button Config.icon4_delta 0 ibs ibs 3 6);
+				(new UI.button Config.icon4_delta 0 ibs ibs 3 4);
 			]
 		);
 		(new UI.group

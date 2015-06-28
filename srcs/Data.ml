@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 16:37:26 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 17:12:07 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 17:56:42 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -66,13 +66,13 @@ let new_data ((winx, winy) as winsize) =
 						 (192, 0) (64, 64) (4, 1) (is, is) 1000);
 	  (* PIKACHU THUNDER *)
 	  (Sprite.new_sprite 7 1 (Image.sdl_ptr images.(1))
-						 (4, 154) (59, 59) (10, 10) (ps, ps) 1000);
+						 (4, 154) (59, 59) (10, 10) (ps, ps) 200);
 	  (* PIKACHU KILL *)
 	  (Sprite.new_sprite 8 1 (Image.sdl_ptr images.(1))
-						 (217, 771) (70, 70) (8, 8) (ps, ps) 1000);
+						 (217, 771) (70, 70) (8, 8) (ps, ps) 120);
 	  (* PIKACHU BATH *)
 	  (Sprite.new_sprite 9 1 (Image.sdl_ptr images.(1))
-						 (0, 541) (68, 68) (7, 7) (ps, ps) 1000);
+						 (0, 541) (68, 68) (7, 7) (ps, ps) 500);
 
 	  (* BAR HP *)
 	  (Sprite.new_sprite 10 4 (Image.sdl_ptr images.(4))
@@ -103,7 +103,7 @@ let new_data ((winx, winy) as winsize) =
 	display = display;
 	sprites = sprites;
 	font = Sdlttf.open_font Config.font_path Config.font_size;
-	pikadat = Sprite.new_tmp_pika ();
+	pikadat = Sprite.new_tmp_pika 1000;
 	pikastats = Stat.default_status ();
   }
 
@@ -120,5 +120,7 @@ let action_pikastat d action_i =
 let decay_pikastat d elapsed = {
 	d with pikastats = Stat.apply_decay elapsed d.pikastats}
 let update_pikadat d elapsed = {
-	d with pikadat = Sprite.update_tmppika d.pikadat elapsed}
+	d with pikadat = Sprite.update_tmppika d.pikadat elapsed}	
+let set_pikadat d pikadat =
+  {d with pikadat = pikadat}
 	
