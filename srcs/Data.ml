@@ -6,7 +6,7 @@
 (*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 16:37:26 by ngoguey           #+#    #+#             *)
-(*   Updated: 2015/06/28 17:56:42 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 18:14:46 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -40,6 +40,8 @@ let new_data ((winx, winy) as winsize) =
 	  (Image.load_texture Config.fill1_path 8);
 	  (Image.load_texture Config.fill2_path 9);
 	  (Image.load_texture Config.fill3_path 10);
+	  (Image.load_texture Config.iconalert 11);
+	  (Image.load_texture Config.iconalertants 12);
 	 |] in
   let sprites = [|
 	  (* PIKACHU IDLE *)
@@ -96,6 +98,15 @@ let new_data ((winx, winy) as winsize) =
 	  (* FILL3 *)
 	  (Sprite.new_sprite 16 10 (Image.sdl_ptr images.(10))
 						 (0, 0) (256, 64) (1, 1) (bw, bh) 1000);
+	  (* ICON HOVER *)
+	  (Sprite.new_sprite 17 11 (Image.sdl_ptr images.(11))
+						 (1, 69) (67, 68) (1, 1)
+						 (Config.hover_size, Config.hover_size) 1000);
+	  (* ICON ANTS *)
+	  (Sprite.new_sprite 18 12 (Image.sdl_ptr images.(12))
+						 (0, 0) (48, 48) (25, 5)
+						 (Config.ant_size, Config.ant_size) 1000);
+	  
 	  
 	 |] in
   {

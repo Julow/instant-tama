@@ -26,7 +26,9 @@ let hapbar_path = "ressources/Hapyness_bar.png"
 let fill1_path = "ressources/Generic1.png"
 let fill2_path = "ressources/Generic2.png"
 let fill3_path = "ressources/Generic3.png"
-
+let iconalert = "ressources/IconAlert.png"
+let iconalertants = "ressources/IconAlertAnts.png"
+				   
 let font_path = "ressources/font.ttf"
 let font_size = 16
 
@@ -60,6 +62,14 @@ let icon_group_width = (4 * ibs + 3 * icons_margin)
 					
 let icon_group_horizontal_pos = (w_width - icon_group_width) / 2
 let icon_group_vertical_pos = 662 - icon_group_horizontal_pos / 2 - ibs
+
+let hover_sizef = 1.47 *. icon_size_float
+let hover_offsetf = (hover_sizef -. icon_size_float) /. 2.
+let hover_offset = truncate hover_offsetf
+let hover_size = truncate hover_sizef
+
+let ant_size = is
+
 
 (* ****************************** BAR VALUES ******************************** *)
 let bar_width = 250
