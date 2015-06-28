@@ -6,7 +6,7 @@
 (*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/06/27 15:07:56 by jaguillo          #+#    #+#             *)
-(*   Updated: 2015/06/28 12:20:56 by ngoguey          ###   ########.fr       *)
+(*   Updated: 2015/06/28 12:50:55 by ngoguey          ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -19,7 +19,7 @@ object
 
 	method on_click (x:int) (y:int) (env:Data.data) = env
 	method update (env:Data.data) = {< >}
-	method virtual draw :Data.data -> unit
+	method virtual draw :int * int -> Data.data -> unit
 
 	method x = _x
 	method y = _y
@@ -45,7 +45,8 @@ object
 			| head::tail						-> loop tail
 		in
 		loop _childs
-	method draw (env:Data.data) = List.iter (fun c -> c#draw env) _childs
+	method draw (x, y) (env:Data.data) =
+	  List.iter (fun c -> c#draw (x + c#x, y + c#y) env) _childs
 	method update (env:Data.data) = {< _childs = List.map (fun c ->
 			c#update env
 		) _childs >}
@@ -58,9 +59,9 @@ object
 	method set_text str font =
 		let w, h = Sdlttf.size_text font str in
 		{< _text = str ; _width = w ; _height = h >}
-	method draw (env:Data.data) =
+	method draw (x, y) (env:Data.data) =
 		let surface = Sdlttf.render_text_solid (Data.font env) _text Sdlvideo.red in
-		let dst_rect = Sdlvideo.rect _x _y _width _height in
+		let dst_rect = Sdlvideo.rect x y _width _height in
 		Sdlvideo.blit_surface ~src:surface ~dst:(Data.display env) ~dst_rect:dst_rect ()
 end
 
@@ -68,12 +69,12 @@ class sprite x y w h sprite_i =
 object
 	inherit basic_object x y w h
 	val _sprite_i = sprite_i
-	val _dst_rect = Sdlvideo.rect x y w h
 	val _sprite_state = Sprite.new_tmp ()
-	method draw (env:Data.data) =
+	method draw (x, y) (env:Data.data) =
 	  let sprite = Data.sprite_n env _sprite_i in
 	  let img = Sprite.sdl_ptr sprite in	  
 	  let dst = Data.display env in
 	  let rect = Sprite.rect sprite _sprite_state in
-	  Sdlvideo.blit_surface ~src:img ~src_rect:rect ~dst:dst ~dst_rect:_dst_rect ()
+	  let dst_rect = Sdlvideo.rect x y 0 0 in
+	  Sdlvideo.blit_surface ~src:img ~src_rect:rect ~dst:dst ~dst_rect:dst_rect ()
 end
