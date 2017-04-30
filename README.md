@@ -1,22 +1,24 @@
 # Piscine OCAML rush#01 INSTANT-TAMA, Jun 2015
->>>>> #####Tamagotchi game. (group project)
+>>>>> ##### Tamagotchi game. (group project)
 
-#####Grade ``(121/100)`` ``(121/121)*``
---------  -----------------------
+##### Grade ``(121/100)`` ``(121/121)*``
+----
 
 Team: [jaguillo](https://github.com/Julow) / [ngoguey](https://github.com/Ngoguey42).
 <BR>
 
-#####Goals:
-- [X] 
+##### Goals:
+- See subject.pdf
 
-#####Recommended bonuses:
-- [X] 
+##### Recommended bonuses:
+- See subject.pdf
 
-#####Our work:
-- [X] 
+##### Our work:
+- Far more than requested
+<br>
+![preview.gif](preview.gif)
 
-#####Install and launch:
+##### Install and launch (mac os):
 
 ```sh
 brew install ocaml ocamlsdl
