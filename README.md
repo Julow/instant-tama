@@ -16,6 +16,7 @@ Team: [jaguillo](https://github.com/Julow) / [ngoguey](https://github.com/Ngogue
 ##### Our work:
 - Far more than requested
 <br>
+
 ![preview.gif](preview.gif)
 
 ##### Install and launch (mac os):
