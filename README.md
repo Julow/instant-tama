@@ -4,7 +4,7 @@
 ##### Grade ``(121/100)`` ``(121/121)*``
 ----
 
-Team: [jaguillo](https://github.com/Julow) / [ngoguey](https://github.com/Ngoguey42).
+Team: [julow](https://github.com/Julow) / [ngoguey](https://github.com/Ngoguey42).
 <BR>
 
 ##### Goals:
@@ -32,6 +32,6 @@ make
 ```
 *
 - A grade of 85 was required to validate the project.
-- A maximum grade of 125 was reachable.
+- A maximum grade of 121 was reachable.
 - Second sessions are organised for failed projects.
 ```
